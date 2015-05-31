@@ -20,6 +20,22 @@ namespace CrackerJac
 						return;
 					}
 				}
+				Console.WriteLine("\tNot found in base words, appending 0-10");
+				if (Advanced.NumAppend(curHash, name, 0, 10))
+				{
+					return;
+				}
+				Console.WriteLine("\tNot found in append 0-10, appending 10-100");
+				if (Advanced.NumAppend(curHash, name, 10, 100))
+				{
+					return;
+				}
+				Console.WriteLine("\tNot found in append 10-100, appending 100-1000");
+				if (Advanced.NumAppend(curHash, name, 100, 1000))
+				{
+					return;
+				}
+
 				Console.WriteLine("The password for " + name + " was not found in the dictionary");
 		}
 	
@@ -38,6 +54,22 @@ namespace CrackerJac
 					return;
 				}
 			}
+			Console.WriteLine("\tNot found in base words, appending 0-10");
+			if (Advanced.NumAppendSalt(hash, name, salt, 0, 10))
+			{
+				return;
+			}
+			Console.WriteLine("\tNot found in append 1-10, appending 10-100");
+			if (Advanced.NumAppendSalt(hash, name, salt, 10, 100))
+			{
+				return;
+			}
+			Console.WriteLine("\tNot found in append 10-100, appending 100-1000");
+			if (Advanced.NumAppendSalt(hash, name, salt, 100, 1000))
+			{
+				return;
+			}
+
 			Console.WriteLine("The password for " + name + " was not found in the dictionary");
 		}
 		public static string GenHash(string text)
