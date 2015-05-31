@@ -7,7 +7,7 @@ namespace CrackerJac
 {
 	public static class Program
 	{
-		public static string[] Dictionary;
+		public static string[] Dictionary = new string[1000];
 		public static void Main(string[] args)
 		{
 			if (args[0] == "-h")
@@ -24,19 +24,6 @@ namespace CrackerJac
 				Console.WriteLine("[HASHES] represents a plain text file containing names and hashes");
 				Environment.Exit(0);
 			}
-			if (args[1] == "-n")
-			{
-				if (!File.Exists(args[0]))
-				{
-					Console.WriteLine("CrackerJac: ERROR hash file " + args[0] + " could not be loaded as the file does not exist");
-				}
-				string[] numHashes = File.ReadAllLines(args[0]);
-                                for (int x = 0; x < numHashes.Length; x++)
-                                {
-                                        Cracking.Number(numHashes[x]);
-                                }
-				Environment.Exit(0);
-                        }
  
 			if (!File.Exists(args[0]))
 			{
@@ -48,20 +35,47 @@ namespace CrackerJac
 				Console.WriteLine("CrackerJac: ERROR hash file " + args[1] + " could not be loaded as the file does not exist");
 				Environment.Exit(-1);
 			}
-			Dictionary = File.ReadAllLines(args[0]);
 			string[] hashes = File.ReadAllLines(args[1]);
-			if (args[2] == "-u" || args[2] == "")
+			using (var fdict = File.OpenRead(args[0]))
+			using (var reader = new StreamReader(fdict))
 			{
 				for (int x = 0; x < hashes.Length; x++)
 				{
-					Cracking.Unsalted(hashes[x]);
-				}
-			}
-			if (args[2] == "-s")
-			{
-				for (int x = 0; x < hashes.Length; x++)
-				{
-					Cracking.Salted(hashes[x]);
+					while (reader.BaseStream.Position < reader.BaseStream.Length)
+					{
+						for (int y = 0; y < 1000; y++)
+						{
+							Dictionary[y] = reader.ReadLine();
+
+							if (Dictionary[y] != null)
+							{
+								Dictionary[y].Replace("\r", "");
+							}
+						}
+						if (args[2] == "-u")
+						{
+							if (Cracking.Unsalted(hashes[x]))
+							{
+								goto nextHash;
+							}
+						}
+						if (args[2] == "-s")
+						{
+							if (Cracking.Salted(hashes[x]))
+							{
+								goto nextHash;
+							}
+						}
+						if (args[2] == "-n")
+						{
+							if (Cracking.Numbers(hashes[x]))
+							{
+								goto nextHash;
+							}
+						}
+					}
+					nextHash:
+						Console.Write("");
 				}
 			}
 		}

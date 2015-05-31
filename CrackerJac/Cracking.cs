@@ -8,38 +8,62 @@ namespace CrackerJac
 	public static class Cracking
 	{
 
-		public static void Unsalted(string line)
+		public static bool Unsalted(string line)
 		{               
 				string name = line.Substring(0, line.IndexOf(" "));
 				string curHash = line.Substring(line.IndexOf(" ") + 1);
+
 				for (int x = 0; x < Program.Dictionary.Length; x++)
 				{
 					if (GenHash(Program.Dictionary[x]) == curHash)
 					{
 						Console.WriteLine("Password found for " + name + ", it is " + Program.Dictionary[x]);
-						return;
+						return true;
 					}
 				}
-				Console.WriteLine("\tNot found in base words, appending 0-10");
+				Console.WriteLine("\tNot found in base words, making the first letter capital");
+				if (Advanced.AddCap(curHash, name))
+				{
+					return true;
+				}
+
+				Console.WriteLine("\tNot found in capital words, appending 0-10");
 				if (Advanced.NumAppend(curHash, name, 0, 10))
 				{
-					return;
+					return true;
 				}
+				Console.WriteLine("\t\tTrying capital");
+				if (Advanced.NumAppend(curHash, name, 0, 10, true))
+				{
+					return true;
+				}
+
 				Console.WriteLine("\tNot found in append 0-10, appending 10-100");
 				if (Advanced.NumAppend(curHash, name, 10, 100))
 				{
-					return;
+					return true;
 				}
+				Console.WriteLine("\t\tTrying capital");
+				if (Advanced.NumAppend(curHash, name, 10, 100, true))
+				{
+					return true;
+				}
+
 				Console.WriteLine("\tNot found in append 10-100, appending 100-1000");
 				if (Advanced.NumAppend(curHash, name, 100, 1000))
 				{
-					return;
+					return true;
+				}
+				Console.WriteLine("\t\tTrying capital");
+				if (Advanced.NumAppend(curHash, name, 100, 1000, true))
+				{
+					return true;
 				}
 
-				Console.WriteLine("The password for " + name + " was not found in the dictionary");
+				return false;
 		}
 	
-		public static void Salted(string line)
+		public static bool Salted(string line)
 		{
 			string name = line.Substring(0, line.IndexOf(" "));
                         string curHash = line.Substring(line.IndexOf(" ") + 1);
@@ -51,29 +75,53 @@ namespace CrackerJac
 				if (Salting.Run(Program.Dictionary[x], salt) == hash)
 				{
 					Console.WriteLine("Password found for " + name + ", it is " + Program.Dictionary[x]);
-					return;
+					return true;
 				}
 			}
-			Console.WriteLine("\tNot found in base words, appending 0-10");
+
+			Console.WriteLine("\tNot found in base words, making first letter capital");
+			if (Advanced.AddCapSalt(hash, name, salt))
+			{
+				return true;
+			}
+
+			Console.WriteLine("\tNot found in capital words, appending 0-10");
 			if (Advanced.NumAppendSalt(hash, name, salt, 0, 10))
 			{
-				return;
+				return true;
 			}
+			Console.WriteLine("\t\tTrying capital");
+			if (Advanced.NumAppendSalt(hash, name, salt, 0, 10, true))
+			{
+				return true;
+			}
+
 			Console.WriteLine("\tNot found in append 1-10, appending 10-100");
 			if (Advanced.NumAppendSalt(hash, name, salt, 10, 100))
 			{
-				return;
+				return true;
 			}
+			Console.WriteLine("\t\tTrying capital");
+			if (Advanced.NumAppendSalt(hash, name, salt, 10, 100, true))
+			{
+				return true;
+			}
+
 			Console.WriteLine("\tNot found in append 10-100, appending 100-1000");
 			if (Advanced.NumAppendSalt(hash, name, salt, 100, 1000))
 			{
-				return;
+				return true;
+			}
+			Console.WriteLine("\t\tTrying capital");
+			if (Advanced.NumAppendSalt(hash, name, salt, 100, 1000, true))
+			{
+				return true;
 			}
 
-			Console.WriteLine("The password for " + name + " was not found in the dictionary");
+			return false;
 		}
 
-		public static void Number(string line)
+		public static bool Numbers(string line)
 		{
 		        string name = line.Substring(0, line.IndexOf(" "));
                         string curHash = line.Substring(line.IndexOf(" ") + 1);	
@@ -83,10 +131,10 @@ namespace CrackerJac
 				if (GenHash(x.ToString()) == curHash)
 				{
 					Console.WriteLine("Password found for " + name + ", it is " + x);
-					return;
+					return true;
 				}
 			}
-			Console.WriteLine("The password for " + name + " must have been greater than the max bound or not a number");
+			return false;
 		}
 		public static string GenHash(string text)
 		{
