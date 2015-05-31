@@ -4,7 +4,7 @@ namespace CrackerJac
 {
 	public static class Advanced
 	{
-		public static bool NumAppend(string curHash, string name, int lower, int upper, bool FirstCharUp = false)
+		public static bool NumAppend(string curHash, string name, int lower, int upper, bool FirstCharUp)
 		{
                 	for (int x = 0; x < Program.Dictionary.Length; x++)
                         {
@@ -48,17 +48,17 @@ namespace CrackerJac
 			return false;
 		}
 
-		public static bool AddCap(string curHash, string name)
+		public static void AddCap(string curHash, string name)
 		{
 			for (int x = 0; x < Program.Dictionary.Length; x++)
 			{
 				if (Cracking.GenHash(ShouldAddCap(Program.Dictionary[x], true)) == curHash)
 				{
 					Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], true));
-					return true;
+					return;
 				}
 			}
-			return false;
+			return;
 		}
 		public static string ShouldAddCap(string text, bool FirstCharUp)
 		{

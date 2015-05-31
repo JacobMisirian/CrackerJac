@@ -1,12 +1,20 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Security.Cryptography;
 
 namespace CrackerJac
 {
 	public static class Cracking
 	{
+		public static bool Cap1 = false;
+		public static bool Cap10 = false;
+		public static bool Cap100 = false;
+		public static bool cap1000 = false;
+		public static bool Num1 = false;
+		public static bool Num10 = false;
+		public static bool Num100 = false;
 
 		public static bool Unsalted(string line)
 		{               
@@ -21,45 +29,26 @@ namespace CrackerJac
 						return true;
 					}
 				}
-				Console.WriteLine("\tNot found in base words, making the first letter capital");
-				if (Advanced.AddCap(curHash, name))
-				{
-					return true;
-				}
+				Thread cap1 = new Thread(() => Advanced.AddCap(curHash, name));
+				cap1.Start();
 
-				Console.WriteLine("\tNot found in capital words, appending 0-10");
-				if (Advanced.NumAppend(curHash, name, 0, 10))
-				{
-					return true;
-				}
-				Console.WriteLine("\t\tTrying capital");
-				if (Advanced.NumAppend(curHash, name, 0, 10, true))
-				{
-					return true;
-				}
+				Thread num10 = new Thread(() => Advanced.NumAppend(curHash, name, 0, 10, false));
+				num10.Start();
+				
+				Thread num10c = new Thread(() => Advanced.NumAppend(curHash, name, 0, 10, true));
+				num10c.Start();
 
-				Console.WriteLine("\tNot found in append 0-10, appending 10-100");
-				if (Advanced.NumAppend(curHash, name, 10, 100))
-				{
-					return true;
-				}
-				Console.WriteLine("\t\tTrying capital");
-				if (Advanced.NumAppend(curHash, name, 10, 100, true))
-				{
-					return true;
-				}
+				Thread num100 = new Thread(() => Advanced.NumAppend(curHash, name, 10, 100, false));
+				num100.Start();
 
-				Console.WriteLine("\tNot found in append 10-100, appending 100-1000");
-				if (Advanced.NumAppend(curHash, name, 100, 1000))
-				{
-					return true;
-				}
-				Console.WriteLine("\t\tTrying capital");
-				if (Advanced.NumAppend(curHash, name, 100, 1000, true))
-				{
-					return true;
-				}
+				Thread num100c = new Thread(() => Advanced.NumAppend(curHash, name, 10, 100, true));
+				num100c.Start();
 
+				Thread num1000 = new Thread(() => Advanced.NumAppend(curHash, name, 100, 1000, false));
+				num1000.Start();
+
+				Thread num1000c = new Thread(() => Advanced.NumAppend(curHash, name, 100, 1000, true));
+				num1000c.Start();
 				return false;
 		}
 	
@@ -79,44 +68,26 @@ namespace CrackerJac
 				}
 			}
 
-			Console.WriteLine("\tNot found in base words, making first letter capital");
-			if (Advanced.AddCapSalt(hash, name, salt))
-			{
-				return true;
-			}
+			Thread cap1 = new Thread(() => Advanced.AddCapSalt(hash, name, salt));
+			cap1.Start();
 
-			Console.WriteLine("\tNot found in capital words, appending 0-10");
-			if (Advanced.NumAppendSalt(hash, name, salt, 0, 10))
-			{
-				return true;
-			}
-			Console.WriteLine("\t\tTrying capital");
-			if (Advanced.NumAppendSalt(hash, name, salt, 0, 10, true))
-			{
-				return true;
-			}
+			Thread num1 = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 0, 10, false));
+			num1.Start();
 
-			Console.WriteLine("\tNot found in append 1-10, appending 10-100");
-			if (Advanced.NumAppendSalt(hash, name, salt, 10, 100))
-			{
-				return true;
-			}
-			Console.WriteLine("\t\tTrying capital");
-			if (Advanced.NumAppendSalt(hash, name, salt, 10, 100, true))
-			{
-				return true;
-			}
+			Thread num1c = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 0, 10, true));
+			num1c.Start();
 
-			Console.WriteLine("\tNot found in append 10-100, appending 100-1000");
-			if (Advanced.NumAppendSalt(hash, name, salt, 100, 1000))
-			{
-				return true;
-			}
-			Console.WriteLine("\t\tTrying capital");
-			if (Advanced.NumAppendSalt(hash, name, salt, 100, 1000, true))
-			{
-				return true;
-			}
+			Thread num10 = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 10, 100, false));
+			num10.Start();
+
+			Thread num10c = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 10, 100, true));
+			num10c.Start();
+
+			Thread num100 = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 100, 1000, false));
+			num100.Start();
+
+			Thread num100c = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 100, 1000, true));
+			num100c.Start();
 
 			return false;
 		}
