@@ -61,7 +61,7 @@ namespace CrackerJac
 						}
 						if (args[2] == "-s")
 						{
-							if (Cracking.Salted(hashes[x]))
+							if (!Cracking.Salted(hashes[x]))
 							{
 								goto nextHash;
 							}
