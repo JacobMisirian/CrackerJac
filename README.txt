@@ -1,6 +1,11 @@
 # CrackerJac
 MD5 Dictionary Cracking Software in C#
 
+NEW!!! As of commit 1.4 CrackerJac will try to
+find a match for a password be appending numbers
+onto the end of it. Debugger output shows when
+it switches to append mode.
+
 CrackerJac works by brute forcing either plain
 unsalted MD5 hashes or MyBB-Style Hash:Salt.
 

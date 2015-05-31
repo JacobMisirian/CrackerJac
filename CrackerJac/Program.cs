@@ -18,11 +18,26 @@ namespace CrackerJac
 				Console.WriteLine("-h\tDisplays this help and exits");
 				Console.WriteLine("-s\tCrackes salted MyBB passwords");
 				Console.WriteLine("-u\tCrackes unsalted (regular) passwords");
+				Console.WriteLine("-n\tCrackes numeric passwords");
 				Console.WriteLine("FILES:");
 				Console.WriteLine("[DICTIONARY] represents a plain text dictionary file.");
 				Console.WriteLine("[HASHES] represents a plain text file containing names and hashes");
 				Environment.Exit(0);
 			}
+			if (args[1] == "-n")
+			{
+				if (!File.Exists(args[0]))
+				{
+					Console.WriteLine("CrackerJac: ERROR hash file " + args[0] + " could not be loaded as the file does not exist");
+				}
+				string[] numHashes = File.ReadAllLines(args[0]);
+                                for (int x = 0; x < numHashes.Length; x++)
+                                {
+                                        Cracking.Number(numHashes[x]);
+                                }
+				Environment.Exit(0);
+                        }
+ 
 			if (!File.Exists(args[0]))
 			{
 				Console.WriteLine("CrackerJac: ERROR dictionary " + args[0] + " could not be loaded as the file does not exist");

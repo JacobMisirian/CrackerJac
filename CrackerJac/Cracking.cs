@@ -72,6 +72,22 @@ namespace CrackerJac
 
 			Console.WriteLine("The password for " + name + " was not found in the dictionary");
 		}
+
+		public static void Number(string line)
+		{
+		        string name = line.Substring(0, line.IndexOf(" "));
+                        string curHash = line.Substring(line.IndexOf(" ") + 1);	
+
+			for (int x = 0; x < 1000000; x++)
+			{
+				if (GenHash(x.ToString()) == curHash)
+				{
+					Console.WriteLine("Password found for " + name + ", it is " + x);
+					return;
+				}
+			}
+			Console.WriteLine("The password for " + name + " must have been greater than the max bound or not a number");
+		}
 		public static string GenHash(string text)
 		{
 			byte[] encodedText = new UTF8Encoding().GetBytes(text);
