@@ -97,7 +97,7 @@ namespace CrackerJac
 		        string name = line.Substring(0, line.IndexOf(" "));
                         string curHash = line.Substring(line.IndexOf(" ") + 1);	
 
-			for (int x = 0; x < 1000000; x++)
+			for (int x = 0; x < 2000000000; x++)
 			{
 				if (GenHash(x.ToString()) == curHash)
 				{

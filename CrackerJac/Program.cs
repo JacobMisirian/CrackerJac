@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 
 namespace CrackerJac
@@ -36,46 +37,32 @@ namespace CrackerJac
 				Environment.Exit(-1);
 			}
 			string[] hashes = File.ReadAllLines(args[1]);
-			using (var fdict = File.OpenRead(args[0]))
-			using (var reader = new StreamReader(fdict))
+			string[] buffer = new string[1000];
+			
+			using (StreamReader reader = new StreamReader(args[0]))
 			{
-				for (int x = 0; x < hashes.Length; x++)
+				while (reader.Peek() != -1)
 				{
-					while (reader.BaseStream.Position < reader.BaseStream.Length)
+					for (int y = 0; y < 1000; y++)
 					{
-						for (int y = 0; y < 1000; y++)
-						{
-							Dictionary[y] = reader.ReadLine();
+						buffer[y] = reader.ReadLine();
+					}
+					Dictionary = buffer;
 
-							if (Dictionary[y] != null)
-							{
-								Dictionary[y].Replace("\r", "");
-							}
-						}
-						if (args[2] == "-u")
+					if (args[2] == "-u")
+					{
+						for (int x = 0; x < hashes.Length; x++)
 						{
-							if (Cracking.Unsalted(hashes[x]))
-							{
-								goto nextHash;
-							}
-						}
-						if (args[2] == "-s")
-						{
-							if (!Cracking.Salted(hashes[x]))
-							{
-								goto nextHash;
-							}
-						}
-						if (args[2] == "-n")
-						{
-							if (Cracking.Numbers(hashes[x]))
-							{
-								goto nextHash;
-							}
+							Cracking.Unsalted(hashes[x]);
 						}
 					}
-					nextHash:
-						Console.Write("");
+					if (args[2] == "-s")
+					{
+						for (int x = 0; x < hashes.Length; x++)
+						{
+							Cracking.Salted(hashes[x]);
+						}
+					}	
 				}
 			}
 		}
