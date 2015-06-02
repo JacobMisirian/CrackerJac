@@ -8,6 +8,10 @@ namespace CrackerJac
 	{
 		public static string Run(string line, string salt)
 		{
+			if (line == null || salt == null)
+			{
+				return "";
+			}
                         string hash = MD5 (MD5 (salt) + MD5 (line));
 		     	return hash;
 		}

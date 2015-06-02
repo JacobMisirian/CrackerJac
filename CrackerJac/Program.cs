@@ -54,15 +54,14 @@ namespace CrackerJac
 					{
 						for (int x = 0; x < hashes.Length; x++)
 						{
-							Thread unsalted = new Thread(() => Cracking.Unsalted(hashes[x]));
-							unsalted.Start();
+							Cracking.Unsalted(hashes[0]);
 						}
 					}
 					if (args[2] == "-s")
 					{
 						for (int x = 0; x < hashes.Length; x++)
 						{
-							Cracking.Salted(hashes[x]);
+							Cracking.Salted(hashes[0]);
 						}
 					}	
 				}

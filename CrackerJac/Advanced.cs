@@ -82,6 +82,10 @@ namespace CrackerJac
 		}
 		public static string ShouldAddCap(string text, bool FirstCharUp)
 		{
+			if (text == null)
+			{
+				return "";
+			}
 			if (FirstCharUp)
 			{
 				return text[0].ToString().ToUpper() + text.Substring(1);
