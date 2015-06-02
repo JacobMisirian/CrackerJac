@@ -10,10 +10,15 @@ namespace CrackerJac
                         {
 				for (int y = lower; y < upper; y++)
 				{
+					if (Supervisor.TermThreads)
+					{
+						return false;
+					}
                         		if (Cracking.GenHash(ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString()) == curHash)
                                 	{
                                 		Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString());
-                                       		return true;
+                                       		Supervisor.TermThreads = true;
+						return true;
                                 	}
                         	}
 			}
@@ -25,10 +30,15 @@ namespace CrackerJac
                         {
 				for (int y = lower; y < upper; y++)
 				{
+					if (Supervisor.TermThreads)
+					{
+						return false;
+					}
                                 	if (Salting.Run(ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString(), salt) == hash)
                                 	{
                                         	Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString());
-                                        	return true;
+                              			Supervisor.TermThreads = true;
+				          	return true;
                                 	}
                         	}
 			}
@@ -39,9 +49,14 @@ namespace CrackerJac
 		{
 			for (int x = 0; x < Program.Dictionary.Length; x++)
 			{
+				if (Supervisor.TermThreads)
+				{
+					return false;
+				}
 				if (Salting.Run(ShouldAddCap(Program.Dictionary[x], true), salt) == hash)
 				{
 					Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], true));
+					Supervisor.TermThreads = true;
 					return true;
 				}
 			}
@@ -52,9 +67,14 @@ namespace CrackerJac
 		{
 			for (int x = 0; x < Program.Dictionary.Length; x++)
 			{
+				if (Supervisor.TermThreads)
+				{
+					return;
+				}
 				if (Cracking.GenHash(ShouldAddCap(Program.Dictionary[x], true)) == curHash)
 				{
 					Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], true));
+					Supervisor.TermThreads = true;
 					return;
 				}
 			}

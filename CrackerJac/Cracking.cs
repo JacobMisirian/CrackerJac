@@ -26,6 +26,7 @@ namespace CrackerJac
 					if (GenHash(Program.Dictionary[x]) == curHash)
 					{
 						Console.WriteLine("Password found for " + name + ", it is " + Program.Dictionary[x]);
+						Supervisor.TermThreads = true;
 						return true;
 					}
 				}
@@ -64,10 +65,15 @@ namespace CrackerJac
 				if (Salting.Run(Program.Dictionary[x], salt) == hash)
 				{
 					Console.WriteLine("Password found for " + name + ", it is " + Program.Dictionary[x]);
+					Supervisor.TermThreads = true;
 					return true;
 				}
 			}
 
+			Supervisor.Reset();
+			Thread supervisor = new Thread(() => Supervisor.Run());
+			supervisor.Start();
+			
 			Thread cap1 = new Thread(() => Advanced.AddCapSalt(hash, name, salt));
 			cap1.Start();
 
@@ -109,6 +115,10 @@ namespace CrackerJac
 		}
 		public static string GenHash(string text)
 		{
+			if (text == null)
+			{
+				return "";
+			}
 			byte[] encodedText = new UTF8Encoding().GetBytes(text);
 			byte[] hash = ((HashAlgorithm) CryptoConfig.CreateFromName("MD5")).ComputeHash(encodedText);
 			return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
