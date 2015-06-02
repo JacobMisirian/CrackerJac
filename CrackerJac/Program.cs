@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
@@ -53,7 +54,8 @@ namespace CrackerJac
 					{
 						for (int x = 0; x < hashes.Length; x++)
 						{
-							Cracking.Unsalted(hashes[x]);
+							Thread unsalted = new Thread(() => Cracking.Unsalted(hashes[x]));
+							unsalted.Start();
 						}
 					}
 					if (args[2] == "-s")
