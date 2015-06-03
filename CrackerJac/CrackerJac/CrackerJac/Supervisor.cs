@@ -5,7 +5,7 @@ namespace CrackerJac
 {
 	public static class Supervisor
 	{
-                public static bool TermThreads = false;
+		public static bool TermThreads = false;
 
 		public static void Run()
 		{

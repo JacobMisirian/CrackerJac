@@ -6,41 +6,41 @@ namespace CrackerJac
 	{
 		public static bool NumAppend(string curHash, string name, int lower, int upper, bool FirstCharUp)
 		{
-                	for (int x = 0; x < Program.Dictionary.Length; x++)
-                        {
+			for (int x = 0; x < Program.Dictionary.Length; x++)
+			{
 				for (int y = lower; y < upper; y++)
 				{
 					if (Supervisor.TermThreads)
 					{
 						return false;
 					}
-                        		if (Cracking.GenHash(ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString()) == curHash)
-                                	{
-                                		Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString());
-                                       		Supervisor.TermThreads = true;
+					if (Cracking.GenHash(ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString()) == curHash)
+					{
+						Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString());
+						Supervisor.TermThreads = true;
 						return true;
-                                	}
-                        	}
+					}
+				}
 			}
 			return false;
 		}
 		public static bool NumAppendSalt(string hash, string name, string salt, int lower, int upper, bool FirstCharUp = false)
 		{
 			for (int x = 0; x < Program.Dictionary.Length; x++)
-                        {
+			{
 				for (int y = lower; y < upper; y++)
 				{
 					if (Supervisor.TermThreads)
 					{
 						return false;
 					}
-                                	if (Salting.Run(ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString(), salt) == hash)
-                                	{
-                                        	Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString());
-                              			Supervisor.TermThreads = true;
-				          	return true;
-                                	}
-                        	}
+					if (Salting.Run(ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString(), salt) == hash)
+					{
+						Console.WriteLine("Password found for " + name + ", it is " + ShouldAddCap(Program.Dictionary[x], FirstCharUp) + y.ToString());
+						Supervisor.TermThreads = true;
+						return true;
+					}
+				}
 			}
 			return false;
 		}

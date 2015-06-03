@@ -21,25 +21,37 @@ namespace CrackerJac
 				Console.WriteLine("-s\tCrackes salted MyBB passwords");
 				Console.WriteLine("-u\tCrackes unsalted (regular) passwords");
 				Console.WriteLine("-n\tCrackes numeric passwords");
+                Console.WriteLine("-gu\tGenerates an unsalted password with syntax -gu [STRING]");
+                Console.WriteLine("-gs\tGenerates a salted password with syntax -gs [SALT] [STRING]");
 				Console.WriteLine("FILES:");
 				Console.WriteLine("[DICTIONARY] represents a plain text dictionary file.");
 				Console.WriteLine("[HASHES] represents a plain text file containing names and hashes");
 				Environment.Exit(0);
 			}
- 
+
+            if (args[0] == "-gu")
+            {
+                Console.WriteLine("The unsalted hash is " + Cracking.GenHash(args[1]));
+                Environment.Exit(0);
+            }
+            if (args[0] == "-gs")
+            {
+                Console.WriteLine("The salted hash is " + Cracking.GenHash(Cracking.GenHash(args[1]) + Cracking.GenHash(args[2])) + " with the salt " + args[1]);
+                Environment.Exit(0);
+            }
 			if (!File.Exists(args[0]))
 			{
 				Console.WriteLine("CrackerJac: ERROR dictionary " + args[0] + " could not be loaded as the file does not exist");
 				Environment.Exit(-1);
 			}
-		 	if (!File.Exists(args[1]))
+			if (!File.Exists(args[1]))
 			{
 				Console.WriteLine("CrackerJac: ERROR hash file " + args[1] + " could not be loaded as the file does not exist");
 				Environment.Exit(-1);
 			}
 			string[] hashes = File.ReadAllLines(args[1]);
 			string[] buffer = new string[1000];
-			
+
 			using (StreamReader reader = new StreamReader(args[0]))
 			{
 				while (reader.Peek() != -1)

@@ -12,8 +12,8 @@ namespace CrackerJac
 			{
 				return "";
 			}
-                        string hash = MD5 (MD5 (salt) + MD5 (line));
-		     	return hash;
+			string hash = MD5 (MD5 (salt) + MD5 (line));
+			return hash;
 		}
 		public static string MD5 (string str)
 		{
