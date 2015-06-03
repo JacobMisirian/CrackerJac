@@ -38,7 +38,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Advanced.cs" />
     <Compile Include="Cracking.cs" />
-    <Compile Include="Salting.cs" />
     <Compile Include="Supervisor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

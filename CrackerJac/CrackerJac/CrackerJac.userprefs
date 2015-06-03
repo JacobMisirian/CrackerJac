@@ -2,10 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="CrackerJac/Program.cs">
     <Files>
-      <File FileName="CrackerJac/Program.cs" Line="34" Column="4" />
+      <File FileName="CrackerJac/Program.cs" Line="19" Column="35" />
       <File FileName="CrackerJac/Advanced.cs" Line="1" Column="1" />
       <File FileName="CrackerJac/Cracking.cs" Line="1" Column="1" />
-      <File FileName="CrackerJac/Salting.cs" Line="53" Column="2" />
+      <File FileName="CrackerJac/Salting.cs" Line="1" Column="1" />
       <File FileName="CrackerJac/Supervisor.cs" Line="1" Column="1" />
     </Files>
     <Pads>

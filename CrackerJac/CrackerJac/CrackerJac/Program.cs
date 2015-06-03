@@ -10,8 +10,12 @@ namespace CrackerJac
 	public static class Program
 	{
 		public static string[] Dictionary = new string[1000];
-		public static void Main(string[] args)
-		{
+        /// <summary>
+        /// The entry point of the program, where the program control starts and ends.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
+        public static void Main(string[] args)
+        {
 			if (args[0] == "-h")
 			{
 				Console.WriteLine("Usage: CrackerJac [DICTIONARY]... [HASHES]... [OPTIONS]...");
@@ -21,10 +25,10 @@ namespace CrackerJac
 				Console.WriteLine("-s\tCrackes salted MyBB passwords");
 				Console.WriteLine("-u\tCrackes unsalted (regular) passwords");
 				Console.WriteLine("-n\tCrackes numeric passwords");
-                Console.WriteLine("-gu\tGenerates an unsalted password with syntax -gu [STRING]");
-                Console.WriteLine("-gs\tGenerates a salted password with syntax -gs [SALT] [STRING]");
+	        	Console.WriteLine("-gu\tGenerates an unsalted password with syntax -gu [STRING]");
+        	    Console.WriteLine("-gs\tGenerates a salted password with syntax -gs [SALT] [STRING]");
 				Console.WriteLine("FILES:");
-				Console.WriteLine("[DICTIONARY] represents a plain text dictionary file.");
+        		Console.WriteLine("[DICTIONARY] represents a plain text dictionary file.");
 				Console.WriteLine("[HASHES] represents a plain text file containing names and hashes");
 				Environment.Exit(0);
 			}
@@ -36,7 +40,7 @@ namespace CrackerJac
             }
             if (args[0] == "-gs")
             {
-                Console.WriteLine("The salted hash is " + Cracking.GenHash(Cracking.GenHash(args[1]) + Cracking.GenHash(args[2])) + " with the salt " + args[1]);
+                Console.WriteLine("The salted hash is " + Cracking.GenSaltedHash(args[2], args[1]) + " with the salt " + args[1]);
                 Environment.Exit(0);
             }
 			if (!File.Exists(args[0]))

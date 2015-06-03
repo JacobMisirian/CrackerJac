@@ -6,6 +6,9 @@ using System.Security.Cryptography;
 
 namespace CrackerJac
 {
+    /// <summary>
+    /// The class containing methods for hash cracking
+    /// </summary>
 	public static class Cracking
 	{
 		public static bool Cap1 = false;
@@ -15,7 +18,10 @@ namespace CrackerJac
 		public static bool Num1 = false;
 		public static bool Num10 = false;
 		public static bool Num100 = false;
-
+        /// <summary>
+        /// Tries to crack the specified unsalted line
+        /// </summary>
+        /// <param name="line">Line.</param>
 		public static bool Unsalted(string line)
 		{               
 			string name = line.Substring(0, line.IndexOf(" "));
@@ -52,7 +58,10 @@ namespace CrackerJac
 			num1000c.Start();
 			return false;
 		}
-
+        /// <summary>
+        /// Tries to crack the specified salted hash
+        /// </summary>
+        /// <param name="line">Line.</param>
 		public static bool Salted(string line)
 		{
 			string name = line.Substring(0, line.IndexOf(" "));
@@ -62,7 +71,7 @@ namespace CrackerJac
 			string hash = saltHash[0];
 			for (int x = 0; x < Program.Dictionary.Length; x++)
 			{
-				if (Salting.Run(Program.Dictionary[x], salt) == hash)
+				if (Cracking.GenSaltedHash(Program.Dictionary[x], salt) == hash)
 				{
 					Console.WriteLine("Password found for " + name + ", it is " + Program.Dictionary[x]);
 					Supervisor.TermThreads = true;
@@ -97,7 +106,10 @@ namespace CrackerJac
 
 			return false;
 		}
-
+        /// <summary>
+        /// Numbers the specified line.
+        /// </summary>
+        /// <param name="line">Line.</param>
 		public static bool Numbers(string line)
 		{
 			string name = line.Substring(0, line.IndexOf(" "));
@@ -113,6 +125,11 @@ namespace CrackerJac
 			}
 			return false;
 		}
+        /// <summary>
+        /// Generates the hash.
+        /// </summary>
+        /// <returns>The hash.</returns>
+        /// <param name="text">Text.</param>
 		public static string GenHash(string text)
 		{
 			if (text == null)
@@ -123,5 +140,15 @@ namespace CrackerJac
 			byte[] hash = ((HashAlgorithm) CryptoConfig.CreateFromName("MD5")).ComputeHash(encodedText);
 			return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
 		}
+        /// <summary>
+        /// Generates the salted hash
+        /// </summary>
+        /// <returns>The salted hash.</returns>
+        /// <param name="text">Text.</param>
+        /// <param name="salt">Salt.</param>
+        public static string GenSaltedHash(string text, string salt)
+        {
+            return GenHash(GenHash(salt) + GenHash(text));
+        }
 	}
 }	
