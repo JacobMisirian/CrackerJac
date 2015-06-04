@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Security.Cryptography;
 
 namespace CrackerJac
@@ -36,25 +37,25 @@ namespace CrackerJac
 					return true;
 				}
 			}
-			Thread cap1 = new Thread(() => Advanced.AddCap(curHash, name));
+			Task cap1 = new Task(() => Advanced.AddCap(curHash, name));
 			cap1.Start();
 
-			Thread num10 = new Thread(() => Advanced.NumAppend(curHash, name, 0, 10, false));
+			Task num10 = new Task(() => Advanced.NumAppend(curHash, name, 0, 10, false));
 			num10.Start();
 
-			Thread num10c = new Thread(() => Advanced.NumAppend(curHash, name, 0, 10, true));
+			Task num10c = new Task(() => Advanced.NumAppend(curHash, name, 0, 10, true));
 			num10c.Start();
 
-			Thread num100 = new Thread(() => Advanced.NumAppend(curHash, name, 10, 100, false));
+			Task num100 = new Task(() => Advanced.NumAppend(curHash, name, 10, 100, false));
 			num100.Start();
 
-			Thread num100c = new Thread(() => Advanced.NumAppend(curHash, name, 10, 100, true));
+			Task num100c = new Task(() => Advanced.NumAppend(curHash, name, 10, 100, true));
 			num100c.Start();
 
-			Thread num1000 = new Thread(() => Advanced.NumAppend(curHash, name, 100, 1000, false));
+			Task num1000 = new Task(() => Advanced.NumAppend(curHash, name, 100, 1000, false));
 			num1000.Start();
 
-			Thread num1000c = new Thread(() => Advanced.NumAppend(curHash, name, 100, 1000, true));
+			Task num1000c = new Task(() => Advanced.NumAppend(curHash, name, 100, 1000, true));
 			num1000c.Start();
 			return false;
 		}
@@ -80,28 +81,28 @@ namespace CrackerJac
 			}
 
 			Supervisor.Reset();
-			Thread supervisor = new Thread(() => Supervisor.Run());
+			Task supervisor = new Task(() => Supervisor.Run());
 			supervisor.Start();
 
-			Thread cap1 = new Thread(() => Advanced.AddCapSalt(hash, name, salt));
+			Task cap1 = new Task(() => Advanced.AddCapSalt(hash, name, salt));
 			cap1.Start();
 
-			Thread num1 = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 0, 10, false));
+			Task num1 = new Task(() => Advanced.NumAppendSalt(hash, name, salt, 0, 10, false));
 			num1.Start();
 
-			Thread num1c = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 0, 10, true));
+			Task num1c = new Task(() => Advanced.NumAppendSalt(hash, name, salt, 0, 10, true));
 			num1c.Start();
 
-			Thread num10 = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 10, 100, false));
+			Task num10 = new Task(() => Advanced.NumAppendSalt(hash, name, salt, 10, 100, false));
 			num10.Start();
 
-			Thread num10c = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 10, 100, true));
+			Task num10c = new Task(() => Advanced.NumAppendSalt(hash, name, salt, 10, 100, true));
 			num10c.Start();
 
-			Thread num100 = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 100, 1000, false));
+			Task num100 = new Task(() => Advanced.NumAppendSalt(hash, name, salt, 100, 1000, false));
 			num100.Start();
 
-			Thread num100c = new Thread(() => Advanced.NumAppendSalt(hash, name, salt, 100, 1000, true));
+			Task num100c = new Task(() => Advanced.NumAppendSalt(hash, name, salt, 100, 1000, true));
 			num100c.Start();
 
 			return false;
