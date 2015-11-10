@@ -28,6 +28,7 @@ namespace CrackerJac
                     Console.WriteLine("-gs --generate-salted [STRING] [SALT]\tGenerates a salted hash from the next two strings.");
                     Console.WriteLine("-h --help\tDisplays this help and exits.");
                     Console.WriteLine("-m --mybb\tCracks salted MyBB style passwords.");
+                    Console.WriteLine("-s --search [QUERY] [DICTIONARY_FILE]\tSearches the dictionary file to see if query exists.");
                     Environment.Exit(0);
                     break;
                 case "-m":
@@ -61,6 +62,19 @@ namespace CrackerJac
                     Console.WriteLine(Cracking.Md5(Cracking.Md5(args[2]) + Cracking.Md5(args[1])));
                     Environment.Exit(0);
                     break;
+                case "-s":
+                case "--search":
+                    if (args.Length < 3)
+                    {
+                        Console.WriteLine("Query and [DICTIONARY_FILE] must follow " + args[0]);
+                        Environment.Exit(0);
+                    }
+                    if (Cracking.Exists(args[1], args[2]))
+                        Console.WriteLine(args[1] + " was found in dictionary.");
+                    else
+                        Console.WriteLine(args[1] + " was not found in dictionary.");
+                    Environment.Exit(0);
+                    break;
                 default:
                     if (args[0].StartsWith("-"))
                     {
@@ -89,13 +103,16 @@ namespace CrackerJac
                 else
                     new Task(() => userThread(parts[0], parts[1])).Start();
             }
-
             Console.Read();
         }
 
         private static void userThread(string name, string hash, string salt = "")
         {
-            Console.WriteLine("Name: " + name + " Cracked Password: " + new Cracking(hash, dictionaryLocation, salt).Crack());
+            string result = new Cracking(hash, dictionaryLocation, salt).Crack();
+            if (result != "")
+                Console.WriteLine("Name: " + name + " Cracked Password: " + result);
+            else
+                Console.WriteLine(name + ": password was not in the dictionary");
         }
     }
 }

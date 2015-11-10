@@ -41,6 +41,15 @@ namespace CrackerJac
             return "";
         }
 
+        public static bool Exists(string query, string dictionaryLocation)
+        {
+            StreamReader sr = new StreamReader(dictionaryLocation);
+            while (!sr.EndOfStream)
+                if (sr.ReadLine() == query)
+                    return true;
+            return false;
+        }
+
         public static string Md5(string unhashed)
         {
             return BitConverter.ToString(((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(new UTF8Encoding().GetBytes(unhashed))).Replace("-", string.Empty).ToLower();
