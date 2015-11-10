@@ -28,20 +28,20 @@ namespace CrackerJac
                 while (!sr.EndOfStream)
                 {
                     string entry = sr.ReadLine();
-                    if (md5(entry) == hash)
+                    if (Md5(entry) == hash)
                         return entry;
                 }
             else
                 while (!sr.EndOfStream)
                 {
                     string entry = sr.ReadLine();
-                    if (md5(md5(salt) + md5(entry)) == hash)
+                    if (Md5(Md5(salt) + Md5(entry)) == hash)
                         return entry;
                 }
             return "";
         }
 
-        private string md5(string unhashed)
+        public static string Md5(string unhashed)
         {
             return BitConverter.ToString(((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(new UTF8Encoding().GetBytes(unhashed))).Replace("-", string.Empty).ToLower();
         }

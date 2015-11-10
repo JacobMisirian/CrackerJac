@@ -24,6 +24,8 @@ namespace CrackerJac
                 case "--help":
                     Console.WriteLine("CrackerJac.exe [OPTIONS] [HASH_FILE] [DICTIONARY_FILE]");
                     Console.WriteLine("Options:");
+                    Console.WriteLine("-gu --generate-unsalted [STRING]\tGenerates an unsalted hash from the next string.");
+                    Console.WriteLine("-gs --generate-salted [STRING] [SALT]\tGenerates a salted hash from the next two strings.");
                     Console.WriteLine("-h --help\tDisplays this help and exits.");
                     Console.WriteLine("-m --mybb\tCracks salted MyBB style passwords.");
                     Environment.Exit(0);
@@ -38,6 +40,26 @@ namespace CrackerJac
                     mybb = true;
                     hashLocation = args[1];
                     dictionaryLocation = args[2];
+                    break;
+                case "-gu":
+                case "--generate-unsalted":
+                    if (args.Length < 2)
+                    {
+                        Console.WriteLine("String must follow " + args[0]);
+                        Environment.Exit(0);
+                    }
+                    Console.WriteLine(Cracking.Md5(args[1]));
+                    Environment.Exit(0);
+                    break;
+                case "-gs":
+                case "--generate-salted":
+                    if (args.Length < 3)
+                    {
+                        Console.WriteLine("String and Salt must follow " + args[0]);
+                        Environment.Exit(0);
+                    }
+                    Console.WriteLine(Cracking.Md5(Cracking.Md5(args[2]) + Cracking.Md5(args[1])));
+                    Environment.Exit(0);
                     break;
                 default:
                     if (args[0].StartsWith("-"))
