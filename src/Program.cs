@@ -58,7 +58,7 @@ namespace CrackerJac
             string[] hashes = File.ReadAllLines(hashLocation);
             foreach (string entry in hashes)
             {
-                if (entry.Trim().StartsWith("#"))
+                if (entry.Trim().StartsWith("#") || entry == "" || entry == "\n")
                     continue;
 
                 string[] parts = entry.Split(' ');

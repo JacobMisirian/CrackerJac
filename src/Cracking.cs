@@ -38,7 +38,6 @@ namespace CrackerJac
                     if (md5(md5(salt) + md5(entry)) == hash)
                         return entry;
                 }
-
             return "";
         }
 
