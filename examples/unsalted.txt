@@ -1,0 +1,4 @@
+# Run this with CrackerJac unsalted.txt path_to_dictionary.txt
+Jacob c48ba993d35c3abe0380f91738fe2a34
+John df53ca268240ca76670c8566ee54568a
+George 312f91285e048e09bb4aefef23627994
