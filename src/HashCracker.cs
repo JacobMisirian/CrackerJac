@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace CrackerJac
 {
-    public class Cracking
+    public class HashCracker
     {
         private string hash { get; set; }
         private string salt { get; set; }
         private string dictionaryLocation { get; set; }
 
-        public Cracking(string hash, string dictionaryLocation, string salt = "")
+        public HashCracker(string hash, string dictionaryLocation, string salt = "")
         {
             this.hash = hash;
             this.dictionaryLocation = dictionaryLocation;

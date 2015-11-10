@@ -49,7 +49,7 @@ namespace CrackerJac
                         Console.WriteLine("String must follow " + args[0]);
                         Environment.Exit(0);
                     }
-                    Console.WriteLine(Cracking.Md5(args[1]));
+                    Console.WriteLine(HashCracker.Md5(args[1]));
                     Environment.Exit(0);
                     break;
                 case "-gs":
@@ -59,7 +59,7 @@ namespace CrackerJac
                         Console.WriteLine("String and Salt must follow " + args[0]);
                         Environment.Exit(0);
                     }
-                    Console.WriteLine(Cracking.Md5(Cracking.Md5(args[2]) + Cracking.Md5(args[1])));
+                    Console.WriteLine(HashCracker.Md5(HashCracker.Md5(args[2]) + HashCracker.Md5(args[1])));
                     Environment.Exit(0);
                     break;
                 case "-s":
@@ -69,7 +69,7 @@ namespace CrackerJac
                         Console.WriteLine("Query and [DICTIONARY_FILE] must follow " + args[0]);
                         Environment.Exit(0);
                     }
-                    if (Cracking.Exists(args[1], args[2]))
+                    if (HashCracker.Exists(args[1], args[2]))
                         Console.WriteLine(args[1] + " was found in dictionary.");
                     else
                         Console.WriteLine(args[1] + " was not found in dictionary.");
@@ -108,7 +108,7 @@ namespace CrackerJac
 
         private static void userThread(string name, string hash, string salt = "")
         {
-            string result = new Cracking(hash, dictionaryLocation, salt).Crack();
+            string result = new HashCracker(hash, dictionaryLocation, salt).Crack();
             if (result != "")
                 Console.WriteLine("Name: " + name + " Cracked Password: " + result);
             else
