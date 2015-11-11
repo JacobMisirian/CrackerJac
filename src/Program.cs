@@ -94,10 +94,11 @@ namespace CrackerJac
             string[] hashes = File.ReadAllLines(hashLocation);
             foreach (string entry in hashes)
             {
-                if (entry.Trim().StartsWith("#") || entry == "" || entry == "\n")
+                string line = entry.Trim();
+                if (line.StartsWith("#") || line == "" || line == "\n")
                     continue;
 
-                string[] parts = entry.Split(' ');
+                string[] parts = line.Split(' ');
                 if (mybb)
                     new Task(() => userThread(parts[0], parts[1], parts[2])).Start();
                 else
