@@ -111,6 +111,11 @@ namespace CrackerJac
                 Console.WriteLine(ex.FileName + " was not found! Try running CrackerJac --help for help");
                 Environment.Exit(0);
             }
+            catch (InternalBufferOverflowException ex)
+            {
+                Console.WriteLine("Internal Buffer Overflow encountered. Something has gone horribly wrong.\nRestart your computer or use one with more RAM");
+                Environment.Exit(0);
+            }
         }
 
         private static void userThread(string name, string hash, string salt = "")
