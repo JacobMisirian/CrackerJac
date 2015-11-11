@@ -4,3 +4,9 @@ C:\Users\jacob.misirian\CrackerJac\src\bin\Debug\CrackerJac.pdb
 C:\Users\jacob.misirian\CrackerJac\src\obj\Debug\CrackerJac.csprojResolveAssemblyReference.cache
 C:\Users\jacob.misirian\CrackerJac\src\obj\Debug\CrackerJac.exe
 C:\Users\jacob.misirian\CrackerJac\src\obj\Debug\CrackerJac.pdb
+C:\Users\Reagan\CrackerJac\src\bin\Debug\CrackerJac.exe.config
+C:\Users\Reagan\CrackerJac\src\obj\Debug\CrackerJac.exe
+C:\Users\Reagan\CrackerJac\src\obj\Debug\CrackerJac.pdb
+C:\Users\Reagan\CrackerJac\src\bin\Debug\CrackerJac.exe
+C:\Users\Reagan\CrackerJac\src\bin\Debug\CrackerJac.pdb
+C:\Users\Reagan\CrackerJac\src\obj\Debug\CrackerJac.csprojResolveAssemblyReference.cache
