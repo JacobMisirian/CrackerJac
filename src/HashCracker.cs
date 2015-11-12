@@ -24,7 +24,7 @@ namespace CrackerJac
             this.suffixCount = 0;
         }
 
-        public string DictionaryCrack(string suffix = "")
+        public string DictionaryCrack(bool advanced, string suffix = "")
         {
             StreamReader sr = new StreamReader(dictionaryLocation);
             if (salt == "")
@@ -41,8 +41,8 @@ namespace CrackerJac
                     if (Md5(Md5(salt) + Md5(entry)) == hash)
                         return entry;
                 }
-            if (suffixCount < 999)
-                return DictionaryCrack(suffixCount++.ToString());
+            if (suffixCount < 999 && advanced)
+                return DictionaryCrack(advanced, suffixCount++.ToString());
             return "";
         }
 
