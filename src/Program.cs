@@ -12,6 +12,8 @@ namespace CrackerJac
         private static string hashLocation = "";
         private static string dictionaryLocation = "";
         private static bool mybb = false;
+        private static bool brute = false;
+        private static int bruteForceLength = 0;
 
         static void Main(string[] args)
         {
@@ -26,12 +28,40 @@ namespace CrackerJac
                     case "--help":
                         Console.WriteLine("CrackerJac.exe [OPTIONS] [HASH_FILE] [DICTIONARY_FILE]");
                         Console.WriteLine("Options:");
+                        Console.WriteLine("-b --brute-force [(-m)] [LENGTH] [HASH_FILE]\tAttempts a brute force attack optionally with the MyBB option AFTER -b");
                         Console.WriteLine("-gu --generate-unsalted [STRING]\tGenerates an unsalted hash from the next string.");
                         Console.WriteLine("-gs --generate-salted [STRING] [SALT]\tGenerates a salted hash from the next two strings.");
                         Console.WriteLine("-h --help\tDisplays this help and exits.");
                         Console.WriteLine("-m --mybb\tCracks salted MyBB style passwords.");
                         Console.WriteLine("-s --search [QUERY] [DICTIONARY_FILE]\tSearches the dictionary file to see if query exists.");
                         Environment.Exit(0);
+                        break;
+                    case "-b":
+                    case "--brute-force":
+                        switch (args[1].ToLower())
+                        {
+                            case "-m":
+                            case "--mybb":
+                                if (args.Length < 4)
+                                {
+                                    Console.WriteLine("Missing [HASH_FILE] or length after option " + args[1]);
+                                    Environment.Exit(0);
+                                }
+                                mybb = true;
+                                bruteForceLength = Convert.ToInt32(args[2]);
+                                hashLocation = args[3];
+                                break;
+                            default:
+                                if (args.Length < 3)
+                                {
+                                    Console.WriteLine("Missing [HASH_FILE] or length after option " + args[0]);
+                                    Environment.Exit(0);
+                                }
+                                bruteForceLength = Convert.ToInt32(args[1]);
+                                hashLocation = args[2];
+                                break;
+                        }
+                        brute = true;
                         break;
                     case "-m":
                     case "-mybb":
@@ -116,15 +146,27 @@ namespace CrackerJac
                 Console.WriteLine("Internal Buffer Overflow encountered. Something has gone horribly wrong.\nRestart your computer or use one with more RAM");
                 Environment.Exit(0);
             }
+            Console.Read();
         }
 
         private static void userThread(string name, string hash, string salt = "")
         {
-            string result = new HashCracker(hash, dictionaryLocation, salt).Crack();
-            if (result != "")
-                Console.WriteLine("Name: " + name + " Cracked Password: " + result);
+            if (brute)
+            {
+                string result = new HashCracker(hash, dictionaryLocation, salt).BruteCrack(HashCracker.Alphabets.STANDARD_LOWERCASE, bruteForceLength);
+                if (result != "")
+                    Console.WriteLine("Name: " + name + " Cracked Password: " + result);
+                else
+                    Console.WriteLine(name + ": password could not be bruteforced");
+            }
             else
-                Console.WriteLine(name + ": password was not in the dictionary");
+            {
+                string result = new HashCracker(hash, dictionaryLocation, salt).DictionaryCrack();
+                if (result != "")
+                    Console.WriteLine("Name: " + name + " Cracked Password: " + result);
+                else
+                    Console.WriteLine(name + ": password was not in the dictionary");
+            }
         }
     }
 }
