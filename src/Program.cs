@@ -171,6 +171,7 @@ namespace CrackerJac
 
         private static void processResult(string message)
         {
+            Console.WriteLine(message);
             if (!File.Exists("result.txt"))
                 File.Create("result.txt");
             File.AppendAllText("result.txt", message);
