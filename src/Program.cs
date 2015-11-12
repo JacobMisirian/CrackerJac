@@ -153,7 +153,7 @@ namespace CrackerJac
         {
             if (brute)
             {
-                string result = new HashCracker(hash, dictionaryLocation, salt).BruteCrack(HashCracker.Alphabets.STANDARD_LOWERCASE, bruteForceLength);
+                string result = new HashCracker(hash, dictionaryLocation, salt).BruteCrack(HashCracker.Alphabets.STANDARD_COMPLETE, bruteForceLength);
                 if (result != "")
                     Console.WriteLine("Name: " + name + " Cracked Password: " + result);
                 else
