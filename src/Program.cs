@@ -155,18 +155,25 @@ namespace CrackerJac
             {
                 string result = new HashCracker(hash, dictionaryLocation, salt).BruteCrack(HashCracker.Alphabets.STANDARD_COMPLETE, bruteForceLength);
                 if (result != "")
-                    Console.WriteLine("Name: " + name + " Cracked Password: " + result);
+                    processResult("Name: " + name + " Cracked Password: " + result);
                 else
-                    Console.WriteLine(name + ": password could not be bruteforced");
+                    processResult(name + ": password could not be bruteforced");
             }
             else
             {
                 string result = new HashCracker(hash, dictionaryLocation, salt).DictionaryCrack();
                 if (result != "")
-                    Console.WriteLine("Name: " + name + " Cracked Password: " + result);
+                    processResult("Name: " + name + " Cracked Password: " + result);
                 else
-                    Console.WriteLine(name + ": password was not in the dictionary");
+                    processResult(name + ": password was not in the dictionary");
             }
+        }
+
+        private static void processResult(string message)
+        {
+            if (!File.Exists("result.txt"))
+                File.Create("result.txt");
+            File.AppendAllText("result.txt", message);
         }
     }
 }
