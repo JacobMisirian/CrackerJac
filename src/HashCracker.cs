@@ -13,31 +13,36 @@ namespace CrackerJac
         private string hash { get; set; }
         private string salt { get; set; }
         private string dictionaryLocation { get; set; }
+        
+        private int suffixCount { get; set; }
 
         public HashCracker(string hash, string dictionaryLocation = "", string salt = "")
         {
             this.hash = hash;
             this.dictionaryLocation = dictionaryLocation;
             this.salt = salt;
+            this.suffixCount = 0;
         }
 
-        public string DictionaryCrack()
+        public string DictionaryCrack(string suffix = "")
         {
             StreamReader sr = new StreamReader(dictionaryLocation);
             if (salt == "")
                 while (!sr.EndOfStream)
                 {
-                    string entry = sr.ReadLine();
+                    string entry = sr.ReadLine() + suffix;
                     if (Md5(entry) == hash)
                         return entry;
                 }
             else
                 while (!sr.EndOfStream)
                 {
-                    string entry = sr.ReadLine();
+                    string entry = sr.ReadLine() + suffix;
                     if (Md5(Md5(salt) + Md5(entry)) == hash)
                         return entry;
                 }
+            if (suffixCount < 999)
+                return DictionaryCrack(suffixCount++.ToString());
             return "";
         }
 
