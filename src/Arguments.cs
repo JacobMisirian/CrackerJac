@@ -37,6 +37,10 @@ namespace CrackerJac
                         Program.BruteForceLength = Convert.ToInt32(expectData("brute force length"));
                         Program.HashLocation = expectData("hash file");
                         break;
+                    case "-c":
+                    case "--caps":
+                        Program.Caps = true;
+                        break;
                     case "-m":
                     case "--mybb":
                         Program.Mybb = true;
@@ -87,6 +91,7 @@ namespace CrackerJac
             Console.WriteLine("Options:");
             Console.WriteLine("-a --advanced\tTries the normal dictionary method, then begins appending 0-999.");
             Console.WriteLine("-b --brute-force [(-m)] [LENGTH] [HASH_FILE]\tAttempts a brute force attack optionally with the MyBB option AFTER -b");
+            Console.WriteLine("-c --caps\tAlterates and tries the dictionary entries with the first letter capitalized.");
             Console.WriteLine("-gu --generate-unsalted [STRING]\tGenerates an unsalted hash from the next string.");
             Console.WriteLine("-gs --generate-salted [SALT] [STRING]\tGenerates a salted hash from the next two strings.");
             Console.WriteLine("-h --help\tDisplays this help and exits.");

@@ -24,13 +24,15 @@ namespace CrackerJac
             this.suffixCount = 0;
         }
 
-        public string DictionaryCrack(bool advanced, string suffix = "")
+        public string DictionaryCrack(bool caps = false, bool advanced = false, string suffix = "")
         {
             StreamReader sr = new StreamReader(dictionaryLocation);
             if (salt == "")
                 while (!sr.EndOfStream)
                 {
                     string entry = sr.ReadLine() + suffix;
+                    if (caps)
+                        entry = entry[0].ToString().ToUpper() + entry.Substring(1);
                     if (Md5(entry) == hash)
                         return entry;
                 }
@@ -38,11 +40,13 @@ namespace CrackerJac
                 while (!sr.EndOfStream)
                 {
                     string entry = sr.ReadLine() + suffix;
+                    if (caps)
+                        entry = entry[0].ToString().ToUpper() + entry.Substring(1);
                     if (Md5(Md5(salt) + Md5(entry)) == hash)
                         return entry;
                 }
             if (suffixCount < 999 && advanced)
-                return DictionaryCrack(advanced, suffixCount++.ToString());
+                return DictionaryCrack(caps, advanced, suffixCount++.ToString());
             return "";
         }
 
