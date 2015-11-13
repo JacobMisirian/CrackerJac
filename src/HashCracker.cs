@@ -15,13 +15,15 @@ namespace CrackerJac
         private string dictionaryLocation { get; set; }
         
         private int suffixCount { get; set; }
+        private int advancedLength { get; set; }
 
-        public HashCracker(string hash, string dictionaryLocation = "", string salt = "")
+        public HashCracker(string hash, string dictionaryLocation = "", string salt = "", int advancedLength = 999)
         {
             this.hash = hash;
             this.dictionaryLocation = dictionaryLocation;
             this.salt = salt;
             this.suffixCount = 0;
+            this.advancedLength = advancedLength;
         }
 
         public string DictionaryCrack(bool caps = false, bool advanced = false, string suffix = "")
@@ -45,7 +47,7 @@ namespace CrackerJac
                     if (Md5(Md5(salt) + Md5(entry)) == hash)
                         return entry;
                 }
-            if (suffixCount < 999 && advanced)
+            if (suffixCount < advancedLength && advanced)
                 return DictionaryCrack(caps, advanced, suffixCount++.ToString());
             return "";
         }

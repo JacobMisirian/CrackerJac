@@ -25,6 +25,7 @@ namespace CrackerJac
                 {
                     case "-a":
                     case "--advanced":
+                        Program.AdvancedLength = Convert.ToInt32(expectData("advanced length"));
                         Program.Advanced = true;
                         break;
                     case "-h":
@@ -89,7 +90,7 @@ namespace CrackerJac
         {
             Console.WriteLine("CrackerJac.exe [OPTIONS] [HASH_FILE] [DICTIONARY_FILE]");
             Console.WriteLine("Options:");
-            Console.WriteLine("-a --advanced\tTries the normal dictionary method, then begins appending 0-999.");
+            Console.WriteLine("-a --advanced [MAX_LENGTH]\tTries the normal dictionary method, then begins appending 0-[MAX_LENGTH].");
             Console.WriteLine("-b --brute-force [(-m)] [LENGTH] [HASH_FILE]\tAttempts a brute force attack optionally with the MyBB option AFTER -b");
             Console.WriteLine("-c --caps\tAlterates and tries the dictionary entries with the first letter capitalized.");
             Console.WriteLine("-gu --generate-unsalted [STRING]\tGenerates an unsalted hash from the next string.");

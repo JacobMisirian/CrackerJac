@@ -16,6 +16,7 @@ namespace CrackerJac
         public static bool Advanced = false;
         public static bool Caps = false;
         public static int BruteForceLength = 0;
+        public static int AdvancedLength = 0;
 
         static void Main(string[] args)
         {
@@ -61,9 +62,9 @@ namespace CrackerJac
             }
             else
             {
-                string result = new HashCracker(hash, DictionaryLocation, salt).DictionaryCrack(Advanced);
+                string result = new HashCracker(hash, DictionaryLocation, salt, AdvancedLength).DictionaryCrack(Advanced);
                 if (Caps)
-                    result = new HashCracker(hash, DictionaryLocation, salt).DictionaryCrack(true, Advanced);
+                    result = new HashCracker(hash, DictionaryLocation, salt, AdvancedLength).DictionaryCrack(true, Advanced);
                 if (result != "")
                     processResult("Name: " + name + " Cracked Password: " + result);
                 else
