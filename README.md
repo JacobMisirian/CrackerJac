@@ -117,3 +117,15 @@ if a dictionary entry is in it. Syntax is:
 ```
 CrackerJac -s <query> <dictionary_file.txt>
 ```
+
+## Complete List of Flags
+Flag                    |  Description
+----------------------- |  -----------
+-a --advanced           |  Turns on advanced mode 0-[MAX].
+-b --brute-force        |  Enables brute force mode with [MAX] length.
+-c --caps               |  Enables checking the regular and capitalized word.
+-gu --generate-unsalted |  Generates an unsalted hash with [STRING].
+-gs --generate-salted   |  Generates a salted hash with [STRING] [SALT].
+-h --help               |  Displays help and exits.
+-m --mybb               |  Enables MyBB salted hash mode.
+-s --search             |  Searches for [QUERY] in [DICTIONARY_LOCATION].
