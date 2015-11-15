@@ -128,4 +128,5 @@ Flag                    |  Description
 -gs --generate-salted   |  Generates a salted hash with [STRING] [SALT].
 -h --help               |  Displays help and exits.
 -m --mybb               |  Enables MyBB salted hash mode.
+-o --output             |  Sends output of crack to [FILE].
 -s --search             |  Searches for [QUERY] in [DICTIONARY_LOCATION].
