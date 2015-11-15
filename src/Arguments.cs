@@ -63,6 +63,7 @@ namespace CrackerJac
                             Console.WriteLine(query + " was found on dictionary");
                         else
                             Console.WriteLine(query + " was not found in dictionary");
+                        Environment.Exit(0);
                         break;
                     default:
                         if (args[position].StartsWith("-"))
