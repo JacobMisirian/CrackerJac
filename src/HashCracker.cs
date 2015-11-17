@@ -10,6 +10,7 @@ namespace CrackerJac
 {
     public class HashCracker
     {
+        public static string HashingMethod = "MD5";
         private string hash { get; set; }
         private string salt { get; set; }
         private string dictionaryLocation { get; set; }
@@ -101,7 +102,7 @@ namespace CrackerJac
 
         public static string Md5(string unhashed)
         {
-            return BitConverter.ToString(((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(new UTF8Encoding().GetBytes(unhashed))).Replace("-", string.Empty).ToLower();
+            return BitConverter.ToString(((HashAlgorithm)CryptoConfig.CreateFromName(HashingMethod)).ComputeHash(new UTF8Encoding().GetBytes(unhashed))).Replace("-", string.Empty).ToLower();
         }
 
         public static class Alphabets

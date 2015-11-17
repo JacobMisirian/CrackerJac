@@ -42,6 +42,10 @@ namespace CrackerJac
                     case "--caps":
                         Program.Caps = true;
                         break;
+                    case "-d":
+                    case "--debug":
+                        Program.Debug = true;
+                        break;
                     case "-m":
                     case "--mybb":
                         Program.Mybb = true;
@@ -56,6 +60,35 @@ namespace CrackerJac
                         Console.WriteLine(HashCracker.Md5(HashCracker.Md5(expectData("salt")) + HashCracker.Md5("unhashed string")));
                         Environment.Exit(0);
                         break;
+                    case "-l":
+                    case "--letters":
+                        switch(expectData("alphabet").ToUpper())
+                        {
+                            case "STDCOMPLETE":
+                                Program.Alphabet = HashCracker.Alphabets.STANDARD_COMPLETE;
+                                break;
+                            case "STDLOWER":
+                                Program.Alphabet = HashCracker.Alphabets.STANDARD_LOWERCASE;
+                                break;
+                            case "STDUPPER":
+                                Program.Alphabet = HashCracker.Alphabets.STANDARD_UPPERCASE;
+                                break;
+                            case "SYMS":
+                                Program.Alphabet = HashCracker.Alphabets.SYMBOLS;
+                                break;
+                            case "NUMS":
+                                Program.Alphabet = HashCracker.Alphabets.NUMBERS;
+                                break;
+                            default:
+                                Console.WriteLine("Alphabet needs to be STDCOMPLETE, STDLOWER, STDUPPER, NUMS, or SYMS.");
+                                Environment.Exit(0);
+                                break;
+                        }
+                        break;
+                    case "-o":
+                    case "--output":
+                        Program.OutputFile = expectData("output file");
+                        break;
                     case "-s":
                     case "--search":
                         string query = expectData("query");
@@ -64,6 +97,10 @@ namespace CrackerJac
                         else
                             Console.WriteLine(query + " was not found in dictionary");
                         Environment.Exit(0);
+                        break;
+                    case "-t":
+                    case "--type":
+                        HashCracker.HashingMethod = expectData("hashing method");
                         break;
                     default:
                         if (args[position].StartsWith("-"))
@@ -97,8 +134,11 @@ namespace CrackerJac
             Console.WriteLine("-gu --generate-unsalted [STRING]\tGenerates an unsalted hash from the next string.");
             Console.WriteLine("-gs --generate-salted [SALT] [STRING]\tGenerates a salted hash from the next two strings.");
             Console.WriteLine("-h --help\tDisplays this help and exits.");
+            Console.WriteLine("-l --letters [ALPHA]\tChanges the letter scheme for brute. Options are STDCOMPLETE STDLOWER STDUPPER NUMS SYMS.");
             Console.WriteLine("-m --mybb\tCracks salted MyBB style passwords.");
+            Console.WriteLine("-o --output [FILE]\tSends the results of a crack to a file.");
             Console.WriteLine("-s --search [QUERY] [DICTIONARY_FILE]\tSearches the dictionary file to see if query exists.");
+            Console.WriteLine("-t --type [METHOD]\tChanges the type of hash from md5 to [METHOD].");
             Environment.Exit(0);
         }
     }
