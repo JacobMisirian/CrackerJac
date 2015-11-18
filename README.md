@@ -143,7 +143,7 @@ Flag                    |  Description
 -gu --generate-unsalted |  Generates an unsalted hash with [STRING].
 -gs --generate-salted   |  Generates a salted hash with [STRING] [SALT].
 -h --help               |  Displays help and exits.
--l --letters            |  Changes the alphabet for brute force to [ALPHA]. Which can be STDCOMPLETE STDLOWER STDUPPER NUMS SYMS.
+-l --letters            |  Changes the alphabet for brute force to [ALPHA]. Which can be STDCOMPLETE STDLOWER STDUPPER NUMS SYMS or a file_path.
 -m --mybb               |  Enables MyBB salted hash mode.
 -o --output             |  Sends output of crack to [FILE].
 -s --search             |  Searches for [QUERY] in [DICTIONARY_LOCATION].

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -62,7 +63,8 @@ namespace CrackerJac
                         break;
                     case "-l":
                     case "--letters":
-                        switch(expectData("alphabet").ToUpper())
+                        string alpha = expectData("alphabet");
+                        switch(alpha.ToUpper())
                         {
                             case "STDCOMPLETE":
                                 Program.Alphabet = HashCracker.Alphabets.STANDARD_COMPLETE;
@@ -80,8 +82,13 @@ namespace CrackerJac
                                 Program.Alphabet = HashCracker.Alphabets.NUMBERS;
                                 break;
                             default:
-                                Console.WriteLine("Alphabet needs to be STDCOMPLETE, STDLOWER, STDUPPER, NUMS, or SYMS.");
-                                Environment.Exit(0);
+                                if (File.Exists(alpha))
+                                    Program.Alphabet = File.ReadAllText(alpha);
+                                else
+                                {
+                                    Console.WriteLine("Alphabet needs to be STDCOMPLETE, STDLOWER, STDUPPER, NUMS, or SYMS.");
+                                    Environment.Exit(0);
+                                }
                                 break;
                         }
                         break;
@@ -134,7 +141,7 @@ namespace CrackerJac
             Console.WriteLine("-gu --generate-unsalted [STRING]\tGenerates an unsalted hash from the next string.");
             Console.WriteLine("-gs --generate-salted [SALT] [STRING]\tGenerates a salted hash from the next two strings.");
             Console.WriteLine("-h --help\tDisplays this help and exits.");
-            Console.WriteLine("-l --letters [ALPHA]\tChanges the letter scheme for brute. Options are STDCOMPLETE STDLOWER STDUPPER NUMS SYMS.");
+            Console.WriteLine("-l --letters [ALPHA]\tChanges the letter scheme for brute. Options are STDCOMPLETE STDLOWER STDUPPER NUMS SYMS or a file_path.");
             Console.WriteLine("-m --mybb\tCracks salted MyBB style passwords.");
             Console.WriteLine("-o --output [FILE]\tSends the results of a crack to a file.");
             Console.WriteLine("-s --search [QUERY] [DICTIONARY_FILE]\tSearches the dictionary file to see if query exists.");
