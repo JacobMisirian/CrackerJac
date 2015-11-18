@@ -104,6 +104,13 @@ string to be before it gives up. The syntax is:
 CrackerJac -b <max_length> <hash_file.txt>
 ```
 
+By default the alphabet for brute forcing is STDCOMPLETE, which is A-Z and a-z. You can change
+the alphabet for brute forcing with the -l --letters flag to STDCOMPLETE, STDLOWER, STDUPPER,
+NUMS, or SYMS.
+```
+CrackerJac -b <max_length> -l STDLOWER <hash_file.txt>
+```
+
 ## Other Features
 CrackerJac comes with hashing features that are useful for debugging and testing. For instance
 you can use the hash generation methods to create a hash like so:
@@ -116,6 +123,15 @@ CrackerJac also comes with a way for you to search through your dictionary file 
 if a dictionary entry is in it. Syntax is:
 ```
 CrackerJac -s <query> <dictionary_file.txt>
+```
+
+You can change the hashing method from MD5 to RIPEMD160, SHA1, SHA256, SHA384, or SHA512 with
+the -t --type [METHOD] option.
+```
+CrackerJac -t SHA256 --gu test
+```
+```
+CrackerJac -t SHA512 <hash_file.txt> <dictionary_file.txt>
 ```
 
 ## Complete List of Flags
