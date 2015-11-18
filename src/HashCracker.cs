@@ -36,7 +36,7 @@ namespace CrackerJac
                     string entry = sr.ReadLine() + suffix;
                     if (caps)
                         entry = entry[0].ToString().ToUpper() + entry.Substring(1);
-                    if (Md5(entry) == hash)
+                    if (Hash(entry) == hash)
                         return entry;
                 }
             else
@@ -45,7 +45,7 @@ namespace CrackerJac
                     string entry = sr.ReadLine() + suffix;
                     if (caps)
                         entry = entry[0].ToString().ToUpper() + entry.Substring(1);
-                    if (Md5(Md5(salt) + Md5(entry)) == hash)
+                    if (Hash(Hash(salt) + Hash(entry)) == hash)
                         return entry;
                 }
             if (suffixCount < advancedLength && advanced)
@@ -69,7 +69,6 @@ namespace CrackerJac
                         break;
 
                     for (int i = currentLength - 1; i >= 0; --i)
-                    {
                         if (current[i] != letters_last)
                         {
                             current[i] = letters[letters.IndexOf(current[i]) + 1];
@@ -77,14 +76,13 @@ namespace CrackerJac
                         }
                         else
                             current[i] = letters_first;
-                    }
 
                     if (salt == "")
                     {
-                        if (Md5(current.ToString()) == hash)
+                        if (Hash(current.ToString()) == hash)
                             return current.ToString();
                     }
-                    else if (Md5(Md5(salt) + Md5(current.ToString())) == hash)
+                    else if (Hash(Hash(salt) + Hash(current.ToString())) == hash)
                             return current.ToString();
                 }
             }
@@ -100,7 +98,7 @@ namespace CrackerJac
             return false;
         }
 
-        public static string Md5(string unhashed)
+        public static string Hash(string unhashed)
         {
             return BitConverter.ToString(((HashAlgorithm)CryptoConfig.CreateFromName(HashingMethod)).ComputeHash(new UTF8Encoding().GetBytes(unhashed))).Replace("-", string.Empty).ToLower();
         }

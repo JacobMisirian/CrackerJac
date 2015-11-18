@@ -53,12 +53,12 @@ namespace CrackerJac
                         break;
                     case "-gu":
                     case "--generate-unsalted":
-                        Console.WriteLine(HashCracker.Md5(expectData("unhashed string")));
+                        Console.WriteLine(HashCracker.Hash(expectData("unhashed string")));
                         Environment.Exit(0);
                         break;
                     case "-gs":
                     case "--generate-salted":
-                        Console.WriteLine(HashCracker.Md5(HashCracker.Md5(expectData("salt")) + HashCracker.Md5("unhashed string")));
+                        Console.WriteLine(HashCracker.Hash(HashCracker.Hash(expectData("salt")) + HashCracker.Hash("unhashed string")));
                         Environment.Exit(0);
                         break;
                     case "-l":
