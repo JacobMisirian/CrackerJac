@@ -11,6 +11,7 @@ namespace CrackerJac
     public class HashCracker
     {
         public static string HashingMethod = "MD5";
+
         private string hash { get; set; }
         private string salt { get; set; }
         private string dictionaryLocation { get; set; }

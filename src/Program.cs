@@ -63,7 +63,7 @@ namespace CrackerJac
             {
                 string result = new HashCracker(hash, DictionaryLocation, salt).BruteCrack(Alphabet, BruteForceLength);
                 if (result != "")
-                    processResult("Name: " + name + " Cracked Password: " + result);
+                    processResult("Name: " + name + " Password: " + result);
                 else
                     processResult(name + ": password could not be bruteforced");
             }
@@ -73,11 +73,15 @@ namespace CrackerJac
                 if (Caps)
                     result = new HashCracker(hash, DictionaryLocation, salt, AdvancedLength).DictionaryCrack(true, Advanced);
                 if (result != "")
-                    processResult("Name: " + name + " Cracked Password: " + result);
+                    processResult("Name: " + name + " Password: " + result);
                 else
                     processResult(name + ": password was not in the dictionary");
             }
-            processResult("Time: " + DebugWatch.Elapsed.ToString());
+            if (Debug)
+            {
+                processResult("Time: " + DebugWatch.Elapsed.ToString());
+                DebugWatch.Restart();
+            }
         }
 
         private static void processResult(string message)
