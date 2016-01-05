@@ -1,0 +1,5 @@
+/home/reagan/CrackerJac/src/CrackerJac/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/reagan/CrackerJac/src/CrackerJac/bin/Debug/CrackerJac.exe.mdb
+/home/reagan/CrackerJac/src/CrackerJac/bin/Debug/CrackerJac.exe
+/home/reagan/CrackerJac/src/CrackerJac/obj/x86/Debug/CrackerJac.exe
+/home/reagan/CrackerJac/src/CrackerJac/obj/x86/Debug/CrackerJac.exe.mdb

@@ -17,7 +17,7 @@ namespace CrackerJac
             this.config = config;
         }
 
-        public void Handle()
+        public void Handle(int waitPeriod = 20)
         {
             StreamReader reader = new StreamReader(config.HashFilePath);
             while (!reader.EndOfStream)
@@ -69,7 +69,7 @@ namespace CrackerJac
                         allTasksStopped = false;
                 if (allTasksStopped)
                     return;
-                Thread.Sleep(20);
+                Thread.Sleep(waitPeriod);
             }
 
         }
@@ -83,4 +83,3 @@ namespace CrackerJac
         }
     }
 }
-
