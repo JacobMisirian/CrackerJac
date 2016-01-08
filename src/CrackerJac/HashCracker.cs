@@ -13,7 +13,12 @@ namespace CrackerJac
 
         public string DictionaryAttackUnsalted(string hash, string dictionaryPath, string append = "")
         {
-            StreamReader reader = new StreamReader(dictionaryPath);
+            return DictionaryAttackUnsalted(hash, new StreamReader(dictionaryPath).BaseStream, append);
+        }
+
+        public string DictionaryAttackUnsalted(string hash, Stream dictionary, string append = "")
+        {
+            StreamReader reader = new StreamReader(dictionary);
             while (!reader.EndOfStream)
             {
                 string word = (append == "") ? reader.ReadLine() : reader.ReadLine() + append;
@@ -26,13 +31,18 @@ namespace CrackerJac
 
         public string DictionaryAttackUnsaltedAppend(string hash, string dictionaryPath, int appendFrom, int appendTo)
         {
-            string tryWithoutAppend = DictionaryAttackUnsalted(hash, dictionaryPath);
+            return DictionaryAttackUnsaltedAppend(hash, new StreamReader(dictionaryPath).BaseStream, appendFrom, appendTo);
+        }
+
+        public string DictionaryAttackUnsaltedAppend(string hash, Stream dictionary, int appendFrom, int appendTo)
+        {
+            string tryWithoutAppend = DictionaryAttackUnsalted(hash, dictionary);
             if (tryWithoutAppend != "")
                 return tryWithoutAppend;
 
             while (appendFrom <= appendTo)
             {
-                string res = DictionaryAttackUnsalted(hash, dictionaryPath, appendFrom++.ToString());
+                string res = DictionaryAttackUnsalted(hash, dictionary, appendFrom++.ToString());
                 if (res != "")
                     return res;
             }
@@ -42,7 +52,13 @@ namespace CrackerJac
 
         public string DictionaryAttackSalted(string hash, string salt, string dictionaryPath, string append = "")
         {
-            StreamReader reader = new StreamReader(dictionaryPath);
+            return DictionaryAttackSalted(hash, salt, new StreamReader(dictionaryPath).BaseStream, append);
+        }
+
+        public string DictionaryAttackSalted(string hash, string salt, Stream dictionary, string append = "")
+        {
+            
+            StreamReader reader = new StreamReader(dictionary);
             while (!reader.EndOfStream)
             {
                 string word = (append == null) ? reader.ReadLine() : reader.ReadLine() + append;
@@ -55,13 +71,18 @@ namespace CrackerJac
 
         public string DictionaryAttackSaltedAppend(string hash, string salt, string dictionaryPath, int appendFrom, int appendTo)
         {
-            string tryWithoutAppend = DictionaryAttackSalted(hash, salt, dictionaryPath);
+            return DictionaryAttackSaltedAppend(hash, salt, new StreamReader(dictionaryPath).BaseStream, appendFrom, appendTo);
+        }
+
+        public string DictionaryAttackSaltedAppend(string hash, string salt, Stream dictionary, int appendFrom, int appendTo)
+        {
+            string tryWithoutAppend = DictionaryAttackSalted(hash, salt, dictionary);
             if (tryWithoutAppend != "")
                 return tryWithoutAppend;
 
             while (appendFrom <= appendTo)
             {
-                string res = DictionaryAttackSalted(hash, salt, dictionaryPath, appendFrom++.ToString());
+                string res = DictionaryAttackSalted(hash, salt, dictionary, appendFrom++.ToString());
                 if (res != "")
                     return res;
             }

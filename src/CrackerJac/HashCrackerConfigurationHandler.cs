@@ -58,6 +58,7 @@ namespace CrackerJac
                         break;
                 }
             }
+            reader.Close();
 
             foreach (Task task in tasks)
                 task.Start();

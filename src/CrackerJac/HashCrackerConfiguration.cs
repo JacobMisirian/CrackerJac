@@ -37,4 +37,3 @@ namespace CrackerJac
         public int AppendMaxLength { get; set; }
     }
 }
-
