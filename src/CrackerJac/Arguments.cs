@@ -84,13 +84,17 @@ namespace CrackerJac
                         config.HashCrackerFormat = HashCrackerFormat.Salted;
                         config.HashFilePath = expectData("[HASH_FILE]");
                         break;
+                    case "-t":
+                    case "--time-show":
+                        config.ShowTime = true;
+                        break;
                     case "-u":
                     case "--unsalted":
                         config.HashCrackerFormat = HashCrackerFormat.Unsalted;
                         config.HashFilePath = expectData("[HASH_FILE");
                         break;
                     default:
-                        Console.Write("Unknown " + ((args[position].StartsWith("-")) ? "flag" : "data") + args[position]);
+                        Console.WriteLine("Unknown " + ((args[position].StartsWith("-")) ? "flag" : "data") + args[position]);
                         break;
                 }
             }
@@ -119,9 +123,9 @@ namespace CrackerJac
             Console.WriteLine("-m --method [METHOD]                    Changes the hashing method from MD5 to [METHOD].");
             Console.WriteLine("-o --output [FILE]                      Redirects output to [FILE].");
             Console.WriteLine("-s --salted [HASH_FILE]                 Turns on salted mode using [HASH_FILE].");
+            Console.WriteLine("-t --time-show                          Displays time for hash cracking.");
             Console.WriteLine("-u --unsalted [HASH_FILE]               Turns on unsalted mode using [HASH_FILE].");
             Environment.Exit(0);
         }
     }
 }
-

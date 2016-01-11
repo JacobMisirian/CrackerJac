@@ -19,6 +19,8 @@ namespace CrackerJac
 
         public void Handle(int waitPeriod = 20)
         {
+            if (config.ShowTime)
+                config.Stopwatch.Start();
             StreamReader reader = new StreamReader(config.HashFilePath);
             while (!reader.EndOfStream)
             {
@@ -77,6 +79,8 @@ namespace CrackerJac
 
         private void processOutput(string name, string output)
         {
+            if (config.ShowTime)
+                output += "\nElapsed: " + config.Stopwatch.Elapsed.ToString();
             if (config.OutputMode)
                 File.AppendAllText(config.OutputFilePath, name + " " + output);
             else

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace CrackerJac
 {
@@ -35,5 +36,10 @@ namespace CrackerJac
         private bool appendMode = false;
         public int AppendMinLength { get; set; }
         public int AppendMaxLength { get; set; }
+    
+        public bool ShowTime { get { return showTime; } set { showTime = value; } }
+        private bool showTime = false;
+        public Stopwatch Stopwatch { get { return stopWatch; } set { stopWatch = value; } }
+        private Stopwatch stopWatch = new Stopwatch();
     }
 }
