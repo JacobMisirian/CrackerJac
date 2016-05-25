@@ -177,7 +177,7 @@ namespace CrackerJac
                     }
                     else if (Hash(Hash(salt) + Hash(accum.ToString())) == hash)
                         return accum.ToString();
-                }
+//                }
             }
             return "";
         }
