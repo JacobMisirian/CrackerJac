@@ -68,6 +68,7 @@ namespace CrackerJac
             Console.WriteLine("-d --dict [FILE]     Sets the dict file to [DICT].");
             Console.WriteLine("-h --help            Displays this help and exits.");
             Console.WriteLine("-f --file [FILE]     Sets the hash file to [FILE].");
+            Console.WriteLine("-m --method [ALGO]   Sets the hash algo to [ALGO].");
             Console.WriteLine("-o --output [FILE]   Appends the output to [FILE].");
             Environment.Exit(0);
         }
