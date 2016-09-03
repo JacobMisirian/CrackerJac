@@ -27,10 +27,11 @@ namespace CrackerJac
 			int len = IDs.Length;
 			for (int i = 0; i < len; i++)
 			{
-				string hash = hashes[i];
+                string hash = hashes[i];
+                Statistics.HashesProcessed++;
+                Statistics.BytesProcessed += (ulong)(IDs[i].Length + hash.Length + 2);
 				while (reader.BaseStream.Position < reader.BaseStream.Length)
 				{
-                    Statistics.HashesProcessed++;
 					string entry = reader.ReadLine();
 					if (Hash(entry) == hash)
 					{
@@ -58,14 +59,24 @@ namespace CrackerJac
 			return BitConverter.ToString(HashAlgorithm.ComputeHash(new UTF8Encoding().GetBytes(text))).Replace("-", string.Empty).ToLower();
 		}
 
+        public void DisplayStats()
+        {
+            Console.WriteLine("Time Elapsed: {0}", Statistics.Stopwatch.Elapsed);
+            Console.WriteLine("Processed {0} bytes", Statistics.BytesProcessed);
+            Console.WriteLine("Processed {0} hashes.", Statistics.HashesProcessed);
+            Console.WriteLine("Cracked {0} hashes.", Statistics.CrackedHashes);
+        }
+
         public class Stats
         {
-            public int CrackedHashes { get; set; }
-            public int HashesProcessed { get; set; }
+            public ulong BytesProcessed { get; set; }
+            public ulong CrackedHashes { get; set; }
+            public ulong HashesProcessed { get; set; }
             public Stopwatch Stopwatch { get; private set; }
 
             public Stats()
             {
+                BytesProcessed = 0;
                 CrackedHashes = 0;
                 HashesProcessed = 0;
                 Stopwatch = new Stopwatch();

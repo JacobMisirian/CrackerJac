@@ -43,6 +43,8 @@ namespace CrackerJac
 			}
             reader.Close();
             output.Close();
+            
+            cracker.DisplayStats();
 		}
 
         private static void inputThread(HashCracker cracker)
@@ -52,9 +54,7 @@ namespace CrackerJac
                 switch ((char)Console.Read())
                 {
                     case 'p':
-                        Console.WriteLine("Time Elapsed: {0}", cracker.Statistics.Stopwatch.Elapsed);
-                        Console.WriteLine("Processed {0} hashes.", cracker.Statistics.HashesProcessed);
-                        Console.WriteLine("Cracked {0} hashes.", cracker.Statistics.CrackedHashes);
+                        cracker.DisplayStats();
                         break;
                 }
             }
