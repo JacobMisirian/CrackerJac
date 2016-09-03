@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C428E427-8132-4B8A-B8DE-14F0EAB6DB94}</ProjectGuid>
+    <ProjectGuid>{5D5CB8E5-2200-4D85-8E98-93E8DADCF019}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>CrackerJac</RootNamespace>
     <AssemblyName>CrackerJac</AssemblyName>
@@ -37,9 +37,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HashCracker.cs" />
-    <Compile Include="Arguments.cs" />
-    <Compile Include="HashCrackerConfiguration.cs" />
-    <Compile Include="HashCrackerConfigurationHandler.cs" />
+    <Compile Include="HashCrackedEventArgs.cs" />
+    <Compile Include="CrackerJacConfig.cs" />
+    <Compile Include="CrackerJacArgumentParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

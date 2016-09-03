@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrackerJac", "CrackerJac\CrackerJac.csproj", "{C428E427-8132-4B8A-B8DE-14F0EAB6DB94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrackerJac", "CrackerJac\CrackerJac.csproj", "{5D5CB8E5-2200-4D85-8E98-93E8DADCF019}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C428E427-8132-4B8A-B8DE-14F0EAB6DB94}.Debug|x86.ActiveCfg = Debug|x86
-		{C428E427-8132-4B8A-B8DE-14F0EAB6DB94}.Debug|x86.Build.0 = Debug|x86
-		{C428E427-8132-4B8A-B8DE-14F0EAB6DB94}.Release|x86.ActiveCfg = Release|x86
-		{C428E427-8132-4B8A-B8DE-14F0EAB6DB94}.Release|x86.Build.0 = Release|x86
+		{5D5CB8E5-2200-4D85-8E98-93E8DADCF019}.Debug|x86.ActiveCfg = Debug|x86
+		{5D5CB8E5-2200-4D85-8E98-93E8DADCF019}.Debug|x86.Build.0 = Debug|x86
+		{5D5CB8E5-2200-4D85-8E98-93E8DADCF019}.Release|x86.ActiveCfg = Release|x86
+		{5D5CB8E5-2200-4D85-8E98-93E8DADCF019}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = CrackerJac\CrackerJac.csproj
