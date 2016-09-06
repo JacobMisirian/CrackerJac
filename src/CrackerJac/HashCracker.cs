@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -17,22 +18,20 @@ namespace CrackerJac
             Statistics = new Stats();
 		}
 
-		public void StartDictionaryAttack(Stream dictionary, string[] IDs, string[] hashes)
+		public void StartDictionaryAttack(string[] dictionary, string[] IDs, string[] hashes)
 		{
             Statistics.Stopwatch.Reset();
             Statistics.Stopwatch.Start();
 			if (IDs.Length != hashes.Length)
 				throw new Exception(string.Format("IDs and hashes must be the same length! Got {0} IDs and {1} hashes!", IDs.Length, hashes.Length));
-			StreamReader reader = new StreamReader(dictionary);
 			int len = IDs.Length;
 			for (int i = 0; i < len; i++)
 			{
                 string hash = hashes[i];
                 Statistics.HashesProcessed++;
                 Statistics.BytesProcessed += (ulong)(IDs[i].Length + hash.Length + 2);
-				while (reader.BaseStream.Position < reader.BaseStream.Length)
-				{
-					string entry = reader.ReadLine();
+				foreach (string entry in dictionary)
+                {
 					if (Hash(entry) == hash)
 					{
                         Statistics.CrackedHashes++;
@@ -40,9 +39,38 @@ namespace CrackerJac
 						break;
 					}
 				}
-				reader.BaseStream.Position = 0;
 			}
 		}
+
+        public void StartBruteForceAttack(string letters, int maxLength, string id, string hash)
+        {
+            char firstLetter = letters.First();
+            char lastLetter = letters.Last();
+
+            for (int length = 1; length < maxLength; ++length)
+            {
+                StringBuilder accum = new StringBuilder(new String(firstLetter, length));
+                while (true)
+                {
+                    if (accum.ToString().All(val => val == lastLetter))
+                        break;
+                    for (int i = length - 1; i >= 0; --i)
+                        if (accum[i] != lastLetter)
+                        {
+                            accum[i] = letters[letters.IndexOf(accum[i]) + 1];
+                            break;
+                        }
+                        else
+                            accum[i] = firstLetter;
+                    Statistics.HashesProcessed++;
+                    if (Hash(accum.ToString()) == hash)
+                    {
+                        Statistics.CrackedHashes++;
+                        OnHashCracked(new HashCrackedEventArgs { Hash = hash, ID = id, PlainText = accum.ToString() });
+                    }
+                }
+            }
+        }
 
 		public event EventHandler<HashCrackedEventArgs> HashCracked;
 		protected virtual void OnHashCracked(HashCrackedEventArgs e)

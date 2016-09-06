@@ -21,6 +21,13 @@ namespace CrackerJac
             {
                 switch (args[position++].ToLower())
                 {
+                    case "-b":
+                    case "--brute":
+                        config.IsBruteForce = true;
+                        config.BruteForceLength = Convert.ToInt32(expectData("[LENGTH]"));
+                        position++;
+                        config.BruteForceLettersFile = expectData("[FILE]");
+                        break;
                     case "-d":
                     case "--dict":
                         config.DictionaryFile = expectData("[FILE]");
@@ -65,6 +72,7 @@ namespace CrackerJac
         private void displayHelp()
         {
             Console.WriteLine("CrackerJac [FLAGS]");
+            Console.WriteLine("-b --brute [LENGTH [FILE].  Turns on bruteforce mode using the [LENGTH] and letters in [FILE].");
             Console.WriteLine("-d --dict [FILE]     Sets the dict file to [DICT].");
             Console.WriteLine("-h --help            Displays this help and exits.");
             Console.WriteLine("-f --file [FILE]     Sets the hash file to [FILE].");
