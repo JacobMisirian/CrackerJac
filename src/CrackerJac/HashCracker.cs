@@ -9,16 +9,16 @@ namespace CrackerJac
 {
 	public class HashCracker
 	{
-		public HashAlgorithm HashAlgorithm { get; private set; }
+        private string method;
         public Stats Statistics { get; private set; }
 
 		public HashCracker(string algoString = "MD5")
 		{
-			HashAlgorithm = ((HashAlgorithm)CryptoConfig.CreateFromName(algoString));
+            method = algoString;
             Statistics = new Stats();
 		}
 
-		public void StartDictionaryAttack(string[] dictionary, string[] IDs, string[] hashes)
+		public void StartDictionaryAttack(CrackerJacConfig config, string[] dictionary, string[] IDs, string[] hashes)
 		{
             Statistics.Stopwatch.Reset();
             Statistics.Stopwatch.Start();
@@ -32,15 +32,39 @@ namespace CrackerJac
                 Statistics.BytesProcessed += (ulong)(IDs[i].Length + hash.Length + 2);
 				foreach (string entry in dictionary)
                 {
-					if (Hash(entry) == hash)
-					{
-                        Statistics.CrackedHashes++;
-						OnHashCracked(new HashCrackedEventArgs { Hash = hash, ID = IDs[i], PlainText = entry });
-						break;
-					}
+                    if (tryCrack(IDs[i], entry, hash))
+                        break;
+                    tryAppends(config, IDs[i], entry, hash);
+                    if (config.TryCaps)
+                    {
+                        var sb = new StringBuilder(entry);
+                        sb[0] = char.ToUpper(sb[0]);
+                        if (tryCrack(IDs[i], sb.ToString(), hash))
+                            break;
+                        tryAppends(config, IDs[i], sb.ToString(), hash);
+                    }
 				}
 			}
 		}
+
+        private bool tryCrack(string id, string entry, string hash)
+        {
+            if (Hash(entry) == hash)
+            {
+                Statistics.CrackedHashes++;
+                OnHashCracked(new HashCrackedEventArgs { Hash = hash, ID = id, PlainText = entry });
+                return true;
+            }
+            return false;
+        }
+
+        private bool tryAppends(CrackerJacConfig config, string id, string entry, string hash)
+        {
+            foreach (string append in config.TryAppends)
+                if (tryCrack(id, new StringBuilder(entry).Append(append).ToString(), hash))
+                    return true;
+            return false;
+        }
 
         public void StartBruteForceAttack(string letters, int maxLength, string id, string hash)
         {
@@ -84,7 +108,7 @@ namespace CrackerJac
 		{
 			if (text == null)
 				return string.Empty;
-			return BitConverter.ToString(HashAlgorithm.ComputeHash(new UTF8Encoding().GetBytes(text))).Replace("-", string.Empty).ToLower();
+			return BitConverter.ToString(((HashAlgorithm)CryptoConfig.CreateFromName(method)).ComputeHash(new UTF8Encoding().GetBytes(text))).Replace("-", string.Empty).ToLower();
 		}
 
         public void DisplayStats()

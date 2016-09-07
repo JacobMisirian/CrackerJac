@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace CrackerJac
 {
@@ -12,12 +13,17 @@ namespace CrackerJac
         public string Method { get; set; }
         public string OutputFile { get; set; }
         public int ThreadCount { get; set; }
+        public bool TryCaps { get; set; }
+        public List<string> TryAppends { get; set; }
 
         public CrackerJacConfig()
         {
             IsBruteForce = false;
+            Method = "MD5";
             OutputFile = string.Empty;
             ThreadCount = 1;
+            TryCaps = false;
+            TryAppends = new List<string>();
         }
     }
 }

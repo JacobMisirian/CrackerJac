@@ -67,7 +67,7 @@ namespace CrackerJac
                         IDs.Add(parts[0]);
                         hashes.Add(parts[1]);
                     }
-                    threads[i] = new Thread(() => cracker.StartDictionaryAttack(dictionary, IDs.ToArray(), hashes.ToArray()));
+                    threads[i] = new Thread(() => cracker.StartDictionaryAttack(config, dictionary, IDs.ToArray(), hashes.ToArray()));
                     threads[i].Start();
                 }
                 checkThreads:
