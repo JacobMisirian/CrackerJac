@@ -68,13 +68,14 @@ namespace CrackerJac
 
         private void breakHashes(Stream dictionary, string[] names, string[] hashes)
         {
+            StreamReader dictFile = new StreamReader(dictionary);
+
             for (int i = 0; i < names.Length; i++)
             {
                 string hash = hashes[i];
                 if (hash == null || hash == string.Empty)
                     continue;
                 string name = names[i];
-                StreamReader dictFile = new StreamReader(dictionary);
                 while (dictFile.BaseStream.Position < dictFile.BaseStream.Length)
                 {
                     string entry = dictFile.ReadLine();
@@ -94,6 +95,7 @@ namespace CrackerJac
                             break;
                     }
                 }
+		dictFile.BaseStream.Position = 0;
             }
         }
 
