@@ -10,3 +10,9 @@ C:\Users\Reagan\CrackerJac\src\CrackerJac\obj\Debug\CrackerJac.pdb
 C:\Users\Reagan\CrackerJac\src\CrackerJac\bin\Debug\CrackerJac.exe
 C:\Users\Reagan\CrackerJac\src\CrackerJac\bin\Debug\CrackerJac.pdb
 C:\Users\Reagan\CrackerJac\src\CrackerJac\obj\Debug\CrackerJac.csprojResolveAssemblyReference.cache
+C:\Users\Reagan\CrackerJ\src\CrackerJac\bin\Debug\CrackerJac.exe.config
+C:\Users\Reagan\CrackerJ\src\CrackerJac\obj\Debug\CrackerJac.exe
+C:\Users\Reagan\CrackerJ\src\CrackerJac\obj\Debug\CrackerJac.pdb
+C:\Users\Reagan\CrackerJ\src\CrackerJac\obj\Debug\CrackerJac.csprojResolveAssemblyReference.cache
+C:\Users\Reagan\CrackerJ\src\CrackerJac\bin\Debug\CrackerJac.exe
+C:\Users\Reagan\CrackerJ\src\CrackerJac\bin\Debug\CrackerJac.pdb
