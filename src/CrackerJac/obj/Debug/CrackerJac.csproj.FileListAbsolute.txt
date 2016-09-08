@@ -1,0 +1,6 @@
+c:\users\reagan\CrackerJac\CrackerJac\bin\Debug\CrackerJac.exe.config
+c:\users\reagan\CrackerJac\CrackerJac\obj\Debug\CrackerJac.csprojResolveAssemblyReference.cache
+C:\Users\Reagan\CrackerJac\CrackerJac\bin\Debug\CrackerJac.exe
+C:\Users\Reagan\CrackerJac\CrackerJac\bin\Debug\CrackerJac.pdb
+C:\Users\Reagan\CrackerJac\CrackerJac\obj\Debug\CrackerJac.exe
+C:\Users\Reagan\CrackerJac\CrackerJac\obj\Debug\CrackerJac.pdb

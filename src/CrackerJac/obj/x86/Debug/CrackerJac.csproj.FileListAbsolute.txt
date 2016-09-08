@@ -1,5 +1,0 @@
-C:\Users\Reagan\CrackerJac\src\CrackerJac\bin\Debug\CrackerJac.exe
-C:\Users\Reagan\CrackerJac\src\CrackerJac\bin\Debug\CrackerJac.pdb
-C:\Users\Reagan\CrackerJac\src\CrackerJac\obj\x86\Debug\CrackerJac.csprojResolveAssemblyReference.cache
-C:\Users\Reagan\CrackerJac\src\CrackerJac\obj\x86\Debug\CrackerJac.exe
-C:\Users\Reagan\CrackerJac\src\CrackerJac\obj\x86\Debug\CrackerJac.pdb

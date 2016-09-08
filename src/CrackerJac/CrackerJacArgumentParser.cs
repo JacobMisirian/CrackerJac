@@ -1,4 +1,8 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CrackerJac
 {
@@ -68,7 +72,7 @@ namespace CrackerJac
                         break;
                     case "-g":
                     case "--generate":
-                        Console.WriteLine(new HashCracker(config.Method).Hash(expectData("[STRING]")));
+                        Console.WriteLine(new CrackerJacHashCracker(config).Hash(expectData("[STRING]")));
                         Environment.Exit(0);
                         break;
                     case "-m":
@@ -112,8 +116,8 @@ namespace CrackerJac
             Console.WriteLine("-g --generate [STRING]  Displays the hash for the [STRING] and exits.");
             Console.WriteLine("-m --method [ALGO]   Sets the hash algo to [ALGO].");
             Console.WriteLine("-o --output [FILE]   Appends the output to [FILE].");
+            Console.WriteLine("-t --thread [COUNT]  Delegates the hashes to [COUNT] threads.");
             Environment.Exit(0);
         }
     }
 }
-
