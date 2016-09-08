@@ -41,7 +41,6 @@ namespace CrackerJac
         private void startDictionaryAttack()
         {
             StreamReader hashFile = new StreamReader(Config.HashFile);
-            string[] dictionary = File.ReadAllLines(Config.DictionaryFile);
 
             while (hashFile.BaseStream.Position < hashFile.BaseStream.Length)
             {
@@ -58,7 +57,7 @@ namespace CrackerJac
                             hashes[j] = parts[1];
                         }
                     }
-                    threads[i] = new Thread(() => breakHashes(dictionary, names, hashes));
+                    threads[i] = new Thread(() => breakHashes(File.Open(Config.DictionaryFile, FileMode.Open, FileAccess.Read, FileShare.Read), names, hashes));
                     threads[i].Start();
                 }
                 foreach (var thread in threads)
@@ -67,7 +66,7 @@ namespace CrackerJac
             }
         }
 
-        private void breakHashes(string[] dictionary, string[] names, string[] hashes)
+        private void breakHashes(Stream dictionary, string[] names, string[] hashes)
         {
             for (int i = 0; i < names.Length; i++)
             {
@@ -75,8 +74,10 @@ namespace CrackerJac
                 if (hash == null || hash == string.Empty)
                     continue;
                 string name = names[i];
-                foreach (string entry in dictionary)
+                StreamReader dictFile = new StreamReader(dictionary);
+                while (dictFile.BaseStream.Position < dictFile.BaseStream.Length)
                 {
+                    string entry = dictFile.ReadLine();
                     if (checkHash(name, entry, hash))
                         break;
                     if (checkHashWithAppends(name, entry, hash))
