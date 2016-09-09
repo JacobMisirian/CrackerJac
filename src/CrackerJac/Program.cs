@@ -25,6 +25,7 @@ namespace CrackerJac
         static void hashCracker_OnHashCracked(object sender, HashCrackedEventArgs e)
         {
             output.WriteLine("{0} {1}", e.Name, e.PlainText);
+		output.Flush();
         }
     }
 }

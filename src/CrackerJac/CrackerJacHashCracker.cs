@@ -41,7 +41,7 @@ namespace CrackerJac
         private void startDictionaryAttack()
         {
             StreamReader hashFile = new StreamReader(Config.HashFile);
-
+            string[] dictionary = File.ReadAllLines(Config.DictionaryFile);
             while (hashFile.BaseStream.Position < hashFile.BaseStream.Length)
             {
                 for (int i = 0; i < Config.ThreadCount && hashFile.BaseStream.Position < hashFile.BaseStream.Length; i++)
@@ -57,7 +57,7 @@ namespace CrackerJac
                             hashes[j] = parts[1];
                         }
                     }
-                    threads[i] = new Thread(() => breakHashes(File.Open(Config.DictionaryFile, FileMode.Open, FileAccess.Read, FileShare.Read), names, hashes));
+                    threads[i] = new Thread(() => breakHashes(dictionary, names, hashes));
                     threads[i].Start();
                 }
                 foreach (var thread in threads)
@@ -66,19 +66,16 @@ namespace CrackerJac
             }
         }
 
-        private void breakHashes(Stream dictionary, string[] names, string[] hashes)
+        private void breakHashes(string[] dictionary, string[] names, string[] hashes)
         {
-            StreamReader dictFile = new StreamReader(dictionary);
-
             for (int i = 0; i < names.Length; i++)
             {
                 string hash = hashes[i];
                 if (hash == null || hash == string.Empty)
                     continue;
                 string name = names[i];
-                while (dictFile.BaseStream.Position < dictFile.BaseStream.Length)
+                foreach (string entry in dictionary)
                 {
-                    string entry = dictFile.ReadLine();
                     if (checkHash(name, entry, hash))
                         break;
                     if (checkHashWithAppends(name, entry, hash))
@@ -95,7 +92,6 @@ namespace CrackerJac
                             break;
                     }
                 }
-		dictFile.BaseStream.Position = 0;
             }
         }
 
