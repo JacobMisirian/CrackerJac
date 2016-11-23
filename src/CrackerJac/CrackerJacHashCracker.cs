@@ -51,7 +51,8 @@ namespace CrackerJac
                     for (int j = 0; j < BLOCK_SIZE && hashFile.BaseStream.Position < hashFile.BaseStream.Length; j++)
                     {
                         string[] parts = hashFile.ReadLine().Split(' ');
-                        if (parts.Length == 2)
+
+                        if (parts.Length >= 2)
                         {
                             names[j] = parts[0];
                             hashes[j] = parts[1];
@@ -74,9 +75,12 @@ namespace CrackerJac
                 if (hash == null || hash == string.Empty)
                     continue;
                 string name = names[i];
-                foreach (string entry in dictionary)
+                for (int j = 0; j < dictionary.Length; j++)
                 {
-                    if (checkHash(name, entry, hash))
+                    string[] parts = dictionary[j].Split(' ');
+                    string entry = parts[0];
+                    string entryHash = parts[1];
+                    if (checkHash(name, entry, entryHash, hash))
                         break;
                     if (checkHashWithAppends(name, entry, hash))
                         break;
@@ -86,7 +90,7 @@ namespace CrackerJac
                         sb[0] = char.ToUpper(sb[0]);
                         string capsEntry = sb.ToString();
                         sb = null;
-                        if (checkHash(name, capsEntry, hash))
+                        if (checkHash(name, capsEntry, entryHash, hash))
                             break;
                         if (checkHashWithAppends(name, capsEntry, hash))
                             break;
@@ -100,9 +104,10 @@ namespace CrackerJac
 
         }
 
-        private bool checkHash(string name, string entry, string hash)
+        private bool checkHash(string name, string entry, string entryHash, string hash)
         {
-            if (Hash(entry) == hash)
+            //Console.WriteLine("{0}\t{1}", Hash(entry), hash);
+            if (entryHash == hash)
             {
                 OnHashCracked(new HashCrackedEventArgs { Hash = hash, Name = name, PlainText = entry });
                 return true;
@@ -113,7 +118,7 @@ namespace CrackerJac
         private bool checkHashWithAppends(string name, string entry, string hash)
         {
             foreach (string append in Config.TryAppends)
-                if (checkHash(name, entry + append, hash))
+                if (checkHash(name, entry + append, "", hash))
                     return true;
             return false;
         }

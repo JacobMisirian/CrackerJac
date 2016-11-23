@@ -12,6 +12,7 @@ namespace CrackerJac
         static TextWriter output;
         static void Main(string[] args)
         {
+            Console.WriteLine("NEW");
             var config = new CrackerJacArgumentParser(args).Parse();
             if (config.OutputFile == string.Empty)
                 output = Console.Out;
@@ -25,7 +26,7 @@ namespace CrackerJac
         static void hashCracker_OnHashCracked(object sender, HashCrackedEventArgs e)
         {
             output.WriteLine("{0} {1}", e.Name, e.PlainText);
-		output.Flush();
+		    output.Flush();
         }
     }
 }

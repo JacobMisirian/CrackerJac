@@ -68,7 +68,6 @@ namespace CrackerJac
                     case "-f":
                     case "--file":
                         config.HashFile = expectData("[FILE]");
-                        Console.WriteLine(config.HashFile);
                         break;
                     case "-g":
                     case "--generate":
